@@ -1,0 +1,39 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: HoloFood Data Portal
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Alexander B
+    family-names: Rogers
+    email: sandyr@ebi.ac.uk
+    affiliation: EMBL-EBI
+    orcid: 'https://orcid.org/0000-0002-4283-6135'
+identifiers:
+  - type: doi
+    value: 10.1093/database/baae112
+    description: Journal article describing the software
+  - type: doi
+    value: 10.5281/zenodo.12698157
+    description: Software source code
+repository-code: 'https://github.com/EBI-Metagenomics/holofood-database/'
+url: 'https://www.holofooddata.org'
+abstract: >-
+  The HoloFood Data Portal is a django web application
+  presenting a unified index of hologenomic, multi-omic data
+  from the HoloFood project, which studied the effects of
+  feed additives on chicken and salmon. The data themselves
+  are deposited in existing open science repositories. This
+  application makes them collectively searchable,
+  interlinked, and retrievable in a schema that is aware of
+  the project's experimental design.
+keywords:
+  - python
+  - django
+  - multiomics
+  - holobiont
+license: Apache-2.0

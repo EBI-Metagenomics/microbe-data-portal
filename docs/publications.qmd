@@ -2,6 +2,11 @@
 title: "Publications"
 ---
 
+## Publication covering the HoloFood Data Portal
+
+Rogers, A. B., Kale, V., Baldi, G., Alberdi, A., Gilbert, M. T. P., Gupta, D., Limborg, M. T., Li, S., Payne, T., Petersen, B., Rasmussen, J. A., Richardson, L., Finn, R. D. (2025).
+[HoloFood Data Portal: holo-omic datasets for analysing host–microbiota interactions in animal production.](https://doi.org/10.1093/database/baae112) In Database (Vol. 2025, Article ID: baae112), Oxford University Press. 10.1093/database/baae112
+
 ## Publications from the HoloFood consortium
 
 Nyholm, L., Koziol, A., Marcos, S., Botnen, A. B., Aizpurua, O., Gopalakrishnan, S., Limborg, M. T., Gilbert, M. T. P., & Alberdi, A. (2020). 
