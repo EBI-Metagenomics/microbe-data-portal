@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load sample_metadata %}
+{% block content %}
+    <nav class="vf-breadcrumbs" aria-label="Breadcrumb">
+      <ul class="vf-breadcrumbs__list | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'home' %}" class="vf-breadcrumbs__link">Home</a>
+        </li>
+
+        <li class="vf-breadcrumbs__item" aria-current="location">
+          Use cases
+        </li>
+      </ul>
+
+      <span class="vf-breadcrumbs__heading">Related:</span>
+
+      <ul class="vf-breadcrumbs__list vf-breadcrumbs__list--related | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'samples_list' %}" class="vf-breadcrumbs__link">Samples</a>
+        </li>
+      </ul>
+
+    </nav>
+    <div class="vf-sidebar vf-sidebar--start vf-sidebar--800">
+        <div class="vf-sidebar__inner">
+            <div>
+                <h2>Filter use cases</h2>
+                {% include "microbe/components/form.html" with form=filterset.form method="get" submit="Apply" id="use_case_filters" only %}
+                {% include "microbe/scripts/table_sorter.html" with formId="use_case_filters" %}
+            </div>
+            <div>
+                <h2>Use Cases</h2>
+                <p class="vf-text-body vf-text-body--5">MICROBE project top-level systems.</p>
+                <a class="vf-button vf-button--link vf-button--sm"
+                   href="{% url 'export:use_cases_list' %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
+                <div class="scrollable-container">
+                    <table class="vf-table">
+                        <thead class="vf-table__header">
+                            <tr class="vf-table__row">
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Name" param="name" %}
+                                <th class="vf-table__header" scope="col">Environments</th>
+                                <th class="vf-table__header" scope="col">Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody class="vf-table__body">
+                            {% for use_case in use_cases %}
+                                <tr class="vf-table__row">
+                                    <td class="vf-table__cell">
+                                        <a class="vf-link" href="{% url 'use_case_detail' pk=use_case.name %}">{{ use_case.name }}</a>
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        {% for env in use_case.environments.all %}
+                                            {{ env.name }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        <a class="vf-button vf-button--link vf-button--sm"
+                                           href="{% url 'use_case_detail' pk=use_case.name %}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="vf-table__footer">
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell" colspan="100">{% include "microbe/components/pagination.html" %}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

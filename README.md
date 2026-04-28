@@ -1,19 +1,18 @@
-[![Testing](https://github.com/EBI-Metagenomics/holofood-database/actions/workflows/test.yml/badge.svg)](https://github.com/EBI-Metagenomics/holofood-database/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/EBI-Metagenomics/holofood-database/branch/main/graph/badge.svg?token=27IVW899W8)](https://codecov.io/gh/EBI-Metagenomics/holofood-database)
-[![Build & Publish Docs](https://github.com/EBI-Metagenomics/holofood-database/actions/workflows/docs.yml/badge.svg)](https://github.com/EBI-Metagenomics/holofood-database/actions/workflows/docs.yml)
+[![Testing](https://github.com/EBI-Metagenomics/microbe-data-portal/actions/workflows/test.yml/badge.svg)](https://github.com/EBI-Metagenomics/microbe-data-portal/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/EBI-Metagenomics/microbe-data-portal/branch/main/graph/badge.svg?token=27IVW899W8)](https://codecov.io/gh/EBI-Metagenomics/microbe-data-portal)
+[![Build & Publish Docs](https://github.com/EBI-Metagenomics/microbe-data-portal/actions/workflows/docs.yml/badge.svg)](https://github.com/EBI-Metagenomics/microbe-data-portal/actions/workflows/docs.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Code style: djlint](https://img.shields.io/badge/html%20style-djlint-blue.svg)](https://www.djlint.com)
 [![DOI](https://zenodo.org/badge/475986161.svg)](https://zenodo.org/badge/latestdoi/475986161)
 
 
-# Holofood Data Portal / Database
-The database, website, and API to present [Holofood](https://www.holofood.eu) samples,
+# MICROBE Data Portal / Database
+The database, website, and API to present [MICROBE](https://www.microbe.eu) samples,
 and unify the datasets stored in supporting services.
 
 ## Background
-HoloFood is a consortium and project focussed on understanding the biomolecular 
-and physiological processes  triggered by incorporating feed additives and novel
-sustainable feeds in farmed animals.
+MICROBE paves the way for an innovative microbiome biobanking in Europe 
+by combining scientific expertise with research infrastructures know-how.
 
 This codebase is the public website and API for browsing the Samples and datasets
 created by the project, which are stored in publicly-accessible data repositories. 
@@ -119,13 +118,13 @@ In other words, the order of data insertion needs to be:
 - Viral catalogue into this data portal
 
 The uploaders expect TSV files (and a folder of GFFs in the case of viral catalogue).
-For the format / column naming, inspect the files in `holofood/tests/static_fixtures`.
+For the format / column naming, inspect the files in `microbe/tests/static_fixtures`.
 
 Run `python manage.py import_mag_catalogue` or `import_viral_catalogue` for help, but essentially:
 
 ```shell
-python manage.py import_mag_catalogue hf-salmon-mags-v1 ./salmon.tsv "HoloFood Salmon V1" mgnify-salmon-v1-0 "Some:Biome:String" salmon
-python manage.py import_viral_catalogue hf-salmon-vir-v1 './salmon_viral_cat.tsv' './salmon_viral_annotations.gff' --title="HoloFood Salmon Viruses V1" --related_mag_catalogue_id=hf-salmon-mags-v1
+python manage.py import_mag_catalogue hf-salmon-mags-v1 ./salmon.tsv "MICROBE Salmon V1" mgnify-salmon-v1-0 "Some:Biome:String" salmon
+python manage.py import_viral_catalogue hf-salmon-vir-v1 './salmon_viral_cat.tsv' './salmon_viral_annotations.gff' --title="MICROBE Salmon Viruses V1" --related_mag_catalogue_id=hf-salmon-mags-v1
 ```
 The `import_viral_catalogue` command can be run multiple times to populate the catalogue with several TSV/GFF combinations if needed –
 fragments are appended to the existing catalogue if it already exists.
@@ -156,7 +155,7 @@ Create an
 You need a `Python 3.8 on Amazon Linux 2` platform, and an RDS Postgres database (a `db.t4g.micro` instance is fine).
 
 Run `eb use <whatever-the-name-of-your-elastic-beanstalk-environment-is>`, e.g.
-`eb use holofood-data-portal-dev-env`.
+`eb use microbe-data-portal-dev-env`.
 
 Deploy the latest git commit with `eb deploy`
 
@@ -184,21 +183,21 @@ Occasionally you’ll need `aws sso login --profile eb-cli` to get a new token.
 #### Local
 - Use [`minikube`](https://minikube.sigs.k8s.io/docs/start/) or [`kind`](https://kind.sigs.k8s.io).
 - Make a secrets .env file at `k8s/secrets-k8s.env` with e.g. `DJANGO_SECRET_KEY`.
-- `kubectl create secret generic holofood-secret --from-env-file=k8s/secrets-k8s.env`
-- `minikube image build -t holofood -f k8s/Dockerfile .`
+- `kubectl create secret generic microbe-secret --from-env-file=k8s/secrets-k8s.env`
+- `minikube image build -t microbe -f k8s/Dockerfile .`
 - `kubectl apply -f k8s`
-- `kubectl get pods -A` and find the pod ID for `holofood-app-...`
-- `kubectl exec --stdin --tty holofood-app-......... -- /bin/bash`
+- `kubectl get pods -A` and find the pod ID for `microbe-app-...`
+- `kubectl exec --stdin --tty microbe-app-......... -- /bin/bash`
 - `python manage.py migrate` will make the `/app/data/db.sqlite3`
-- `minikube service holofood`
+- `minikube service microbe`
 
 #### EBI WebProd k8s
 - EBI operates a two-clusters-per-service policy (primary in "HL" data centre a.k.a. "HH" in some places, fallback in "HX"). The app needs to be deployed to both. There are stub configs in `k8s-hl` and `k8s-hx` for these.
 - K8s cluster configurations are provided as YML files by EBI's webprod team. You need these to deploy.
-- Build the image (with some customisation for EBI's NFS filesystem): `docker build -f k8s-hl/Dockerfile -t quay.io/microbiome-informatics/holofood-data-portal:ebi-k8s-hl .`
-- `docker push quay.io/microbiome-informatics/holofood-data-portal:ebi-k8s-hl` (you need appropriate Quay credentials for this).
+- Build the image (with some customisation for EBI's NFS filesystem): `docker build -f k8s-hl/Dockerfile -t quay.io/microbiome-informatics/microbe-data-portal:ebi-k8s-hl .`
+- `docker push quay.io/microbiome-informatics/microbe-data-portal:ebi-k8s-hl` (you need appropriate Quay credentials for this).
 - Make a secrets .env file at `k8s-hl/secrets-k8s.env` with e.g. `DJANGO_SECRET_KEY=....`.
-	- Push it with e.g.: `kubectl --kubeconfig ~/webprod-configs/mgnify-k8s-team-admin-hh.conf --namespace holofood-hl-prod create secret generic holofood-secret --from-env-file=k8s-hl/secrets-k8s.env`
+	- Push it with e.g.: `kubectl --kubeconfig ~/webprod-configs/mgnify-k8s-team-admin-hh.conf --namespace microbe-hl-prod create secret generic microbe-secret --from-env-file=k8s-hl/secrets-k8s.env`
 - Get authentication credentials for quay.io (the built image is private). You can get a Kubernetes secrets yaml file from your Quay.io user settings, in the "CLI Password" section.
 	- Download the secrets yaml and name the secret `name: quay-pull-secret` in the metadata section. Put this into the `k8s-hl` folder.
 - Deploy: `kubectl --kubeconfig ~/webprod-configs/mgnify-k8s-team-admin-hh.conf apply -f k8s-hl`. If the namespace doesn't exist, you might need to apply twice.
@@ -216,7 +215,7 @@ To develop documentation:
 ### To make some small text changes
 Just edit the `.qmd` (essentially just Markdown) files, and commit to GitHub.
 GitHub Actions will render your changes to the 
-[GitHub Pages site](https://ebi-metagenomics.github.io/holofood-database/).
+[GitHub Pages site](https://ebi-metagenomics.github.io/microbe-data-portal/).
 (Because there is a `.github/workflows/docs.yml` action to do this.)
 
 ### To preview changes, or change a Jupyter Notebook

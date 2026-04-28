@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load sample_metadata %}
+{% load static %}
+{% block content %}
+     <nav class="vf-breadcrumbs" aria-label="Breadcrumb">
+      <ul class="vf-breadcrumbs__list | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'home' %}" class="vf-breadcrumbs__link">Home</a>
+        </li>
+
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'use_cases_list' %}" class="vf-breadcrumbs__link">Use cases</a>
+        </li>
+
+        <li class="vf-breadcrumbs__item" aria-current="location">
+          {{ use_case.name }}
+        </li>
+      </ul>
+
+      <span class="vf-breadcrumbs__heading">Related:</span>
+
+      <ul class="vf-breadcrumbs__list vf-breadcrumbs__list--related | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'samples_list' %}?environment__use_case={{ use_case.name }}" class="vf-breadcrumbs__link">Related samples</a>
+        </li>
+      </ul>
+
+    </nav>
+    <h1>Use Case: {{ use_case.name }}</h1>
+    <p class="vf-lede">
+        Details for MICROBE use case: {{ use_case.name }}
+    </p>
+    <br/>
+
+    <details class="vf-details" open>
+        <summary class="vf-details--summary">
+            Use case details
+        </summary>
+        <dl class="vf-list vf-list--definition">
+            <dt class="vf-list__item vf-list--definition__term">
+                Environments
+            </dt>
+            <dd class="vf-list__item vf-list--definition__details">
+                <ul>
+                {% for env in use_case.environments.all %}
+                    <li>{{ env.name }}</li>
+                {% endfor %}
+                </ul>
+            </dd>
+            <dt class="vf-list__item vf-list--definition__term">
+                Samples
+            </dt>
+            <dd class="vf-list__item vf-list--definition__details">
+                <a class="vf-link"
+                   href="{% url 'samples_list' %}?environment__use_case={{ use_case.name }}">View related samples</a>
+            </dd>
+            <dt class="vf-list__item vf-list--definition__term">
+                API endpoint
+            </dt>
+            {% url "api:use_case_detail" use_case_name=use_case.name as endpoint %}
+            {% include "microbe/scripts/copy_api_endpoint.html" %}
+            <dd class="vf-list__item vf-list--definition__details">
+                <span class="api-endpoint">
+                    <a class="vf-link" href="{{ endpoint }}">{{ endpoint }}</a>
+                    <span class="tooltiped">
+                        <button class="vf-button vf-button--link vf-button--sm inline"
+                            onclick="copyApiEndpoint()">
+                            <img src="{% static 'img/icons/copy.svg' %}" height="16px" alt="Copy"/>
+                        </button>
+                        <span id="endpoint-copy-tooltip" class="tooltip-text">Copy API Endpoint</span>
+                    </span>
+
+                </span>
+            </dd>
+        </dl>
+    </details>
+
+{% endblock content %}
+
+{% endblock content %}

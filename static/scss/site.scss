@@ -53,12 +53,16 @@ a.inline, button.inline {
 	padding: 0;
 }
 
-.vf-card--hf {
-    border-bottom-color: #3b6fb6;
+.vf-card--microbe {
+    border-bottom-color: #00827f;
 
 	&.error {
 		border-bottom-color: var(--vf-color--red);
 	}
+}
+
+.hf-hero-logo {
+    display: none;
 }
 
 .api-endpoint {
@@ -71,7 +75,7 @@ a.inline, button.inline {
   	position: relative;
   	display: inline-block;
   	border-bottom: 1px dotted #a0a0a0;
-	color: #3b6fb6;
+	color: #00827f;
 
 	.tooltip-text {
 		visibility: hidden;

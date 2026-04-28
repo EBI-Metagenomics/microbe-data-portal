@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: HoloFood Data Portal
+title: MICROBE Data Portal
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -20,12 +20,12 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.12698157
     description: Software source code
-repository-code: 'https://github.com/EBI-Metagenomics/holofood-database/'
-url: 'https://www.holofooddata.org'
+repository-code: 'https://github.com/EBI-Metagenomics/microbe-database/'
+url: 'https://www.microbedata.org'
 abstract: >-
-  The HoloFood Data Portal is a django web application
+  The MICROBE Data Portal is a django web application
   presenting a unified index of hologenomic, multi-omic data
-  from the HoloFood project, which studied the effects of
+  from the MICROBE project, which studied the effects of
   feed additives on chicken and salmon. The data themselves
   are deposited in existing open science repositories. This
   application makes them collectively searchable,

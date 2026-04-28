@@ -5,20 +5,20 @@ execute:
     freeze: auto
 
 website:
-    title: HoloFood Data Portal Documentation
+    title: MICROBE Data Portal Documentation
     page-footer: This project has received funding from the European Union’s
-        Horizon 2020 research and innovation programme under grant agreement
-        No 817729
+        Horizon Europe research and innovation programme under grant agreement
+        No 101094353
     favicon: img/hf-logo-brand.png
     page-navigation: true
 
-    repo-url: https://github.com/ebi-metagenomics/holofood-database
+    repo-url: https://github.com/ebi-metagenomics/microbe-data-portal
     repo-subdir: docs
     repo-actions: [edit, issue]
 
     navbar:
         right:
-            - href: https://www.holofooddata.org
+            - href: https://data.microbeproject.eu
               text: Data Portal
 
     sidebar:
@@ -34,8 +34,6 @@ website:
             - href: api.ipynb
             - href: database.qmd
             - text: '---'
-            - href: tutorial.ipynb
-            - text: '---'
             - href: publications.qmd
             - text: '---'
             - href: partners.qmd
@@ -44,12 +42,12 @@ website:
             - icon: github
               menu:
                   - text: Data Portal Repository
-                    url: https://github.com/ebi-metagenomics/holofood-database
+                    url: https://github.com/ebi-metagenomics/microbe-data-portal
                   - text: Documentation source
-                    url: https://github.com/ebi-metagenomics/holofood-database/docs
+                    url: https://github.com/ebi-metagenomics/microbe-data-portal/docs
             - icon: question-circle-fill
               text: Help
-              href: mailto:holofood-help@ebi.ac.uk
+              href: mailto:metagenomics-help@ebi.ac.uk
 format:
     html:
         theme:

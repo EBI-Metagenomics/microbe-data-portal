@@ -1,5 +1,5 @@
 portal:
-  root_url: https://www.holofooddata.org
+  root_url: https://data.microbeportal.eu
 
 helpdesk:
-  email: holofood-help@ebi.ac.uk
+  email: metagenomics-help@ebi.ac.uk

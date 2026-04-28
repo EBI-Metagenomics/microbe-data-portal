@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microbe-app
+  namespace: microbe-hl-prod
+  labels:
+    app: microbe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microbe
+  template:
+    metadata:
+      labels:
+        app: microbe
+    spec:
+      securityContext:
+        runAsUser: 7123
+        runAsGroup: 1347
+      volumes:
+        - name: microbe-app-storage
+          persistentVolumeClaim:
+            claimName: microbe-volume-claim
+      containers:
+        - image: quay.io/microbiome-informatics/microbe-data-portal:ebi-k8s-hl
+          imagePullPolicy: Always
+          name: microbe-data-portal
+          envFrom:
+            - secretRef:
+                name: microbe-secret
+            - configMapRef:
+                name: microbe-config
+          ports:
+            - containerPort: 8000
+              name: gunicorn
+          volumeMounts:
+            - mountPath: "/app/data"
+              name: microbe-app-storage
+      imagePullSecrets:
+        - name: quay-pull-secret

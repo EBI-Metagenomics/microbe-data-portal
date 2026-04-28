@@ -2,14 +2,14 @@
 title: "Datasets"
 ---
 
-All HoloFood samples are registered in [BioSamples](https://ebi.ac.uk/biosamples), 
+All MICROBE samples are registered in [BioSamples](https://ebi.ac.uk/biosamples),
 which has [its own documentation](https://www.ebi.ac.uk/biosamples/docs).
 
 Most analyses of the samples are stored in further appropriate supporting databases, 
-with a small number hosted directly in the HoloFood data portal.
+with a small number hosted directly in the MICROBE data portal.
 
 ## ENA Samples / BioSamples
-BioSamples are the "source of truth" for animals and derived samples created by the project.
+BioSamples are the "source of truth" for samples created by the project.
 Some samples are also present in ENA (with the same primary accession / identifier), if those samples pertain to nucleotide read data.
 
 An ENA Sample is part of the [ENA Metadata Model](https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html#metadata-model).
@@ -22,65 +22,26 @@ ENA has [extensive documentation](https://www.ebi.ac.uk/ena/browser/guides).
 An [ENA Checklist](https://ena-docs.readthedocs.io/en/latest/retrieval/ena-project.html?highlight=checklist#sample-checklists) 
 is a set of metadata (some mandatory) for a given sample type.
 
-The HoloFood checklist is [ERC000052](https://www.ebi.ac.uk/ena/browser/view/ERC000052).
-
 ## BioSamples Metadata
-BioSamples is an EBI service hosting annotations keyed against an existing sample hosted elsewhere (in HoloFood's case, ENA).
-For HoloFood biosamples, these are registered against a specific ontology.
-
-The majority of HoloFood samples' metadata are hosted in BioSamples.
-
-HoloFood data for samples that don't have a particular repository are also stored as structured data in BioSamples. 
-For example, histology measurements, inflammatory markers, and fatty acid measurements are stored in the structured data of those samples.
-This contrasts to e.g. nucleotide read, metagenome sequencing, and metabolomic mass spectromoetry data which are available through specific repositories.
+TODO
 
 There is a [BioSamples online training course](https://www.ebi.ac.uk/training/online/courses/biosamples-quick-tour/what-is-biosamples)
 to learn more.
 
 ## MGnify: Metagenomics
-Metagenomic-derived analyses are available for some HoloFood samples.
+Metagenomic-derived analyses are available for some MICROBE samples.
 
 These datasets and analysis features are hosted by [MGnify](https://ebi.ac.uk/metagenomics), which also has [extensive documentation](https://docs.mgnify.org/).
 
 > MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.
 
-### Metagenome Assembled Genome (MAG) Catalogues
-MAG Catalogues are available for selected biomes.
-MAGs are draft genomes created by binning assembled metagenomic reads.
-These MAGs are created using the [MGnify Genomes Pipeline](https://github.com/EBI-Metagenomics/genomes-pipeline).
-MAGs are annotated using various functional and taxonomic characterisation tools.
-
-HoloFood MAGs are those created using only reads from HoloFood samples.
-However, there are other non-HoloFood public data available for the same biomes sampled by this project.
-
-Each HoloFood MAG Catalogue therefore referenced a public MAG Catalogue in MGnify,
-which is a superset of the HoloFood data and other public data.
-
-Each MAG in the HoloFood catalogue references a MAG in the MGnify catalogue which represents the same species.
-In some cases, the HoloFood MAG is the best available sequence for that species level cluster, so the HoloFood MAG
-points to itself on the MGnify website.
-In other cases, a more complete, less contaminated, or isolate genome exists representing the same species,
-so the HoloFood MAG points to this better representative on MGnify.
-
-### Viral (fragment) Catalogues
-Viral catalogues are lists of the unique (at species-level) viruses found in HoloFood samples.
-Viral sequences are detected using [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline).
-Viruses are shown as fragments (regions) of the parent contigs in which they were found.
-The contigs are those stored in MGnify, from the HoloFood Sample sequencing.
-Annotations are available on the contigs from the [MGnify analysis pipeline](https://github.com/EBI-Metagenomics/pipeline-v5).
-
-## MetaboLights: Metabolomics
-Metabolomics-derived analyses are available for some HoloFood samples.
-
-These datasets are hosted by [MetaboLights](https://www.ebi.ac.uk/metabolights/).
-
 ## Summary analyses
 Summary analyses are higher level analyses of a Sample or collection of Samples; 
 written documents serving as short analysis summaries.
 
-These summaries are hosted directly by the HoloFood data portal.
+These summaries are hosted directly by the MICROBE data portal.
 
-The documents are written by HoloFood partners and moderated by the HoloFood consortium, 
+The documents are written by MICROBE partners and moderated by the MICROBE consortium,
 but are not peer-reviewed research articles.
 
 Each analysis summary is linked to one or more Samples that were included in the analysis or are relevant to it.

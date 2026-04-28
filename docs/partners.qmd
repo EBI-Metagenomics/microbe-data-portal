@@ -1,10 +1,10 @@
 ---
-title: "Admin access for HoloFood partners"
+title: "Admin access for MICROBE partners"
 ---
 
 ## Managing the database
 Bulk activities, like importing samples and metadata, are covered in the
-[repository README](https://github.com/EBI-Metagenomics/holofood-database#use).
+[repository README](https://github.com/EBI-Metagenomics/microbe-data-portal#use).
 
 There is also an Admin Panel where individual database entries can be managed.
 
