@@ -2,7 +2,7 @@ from microbe.settings import *
 
 UNIT_TESTING = True
 
-HOLOFOOD_CONFIG = HolofoodConfig(
+MICROBE_CONFIG = MicrobeConfig(
     _env_file=microbe_config_env,
 )
 

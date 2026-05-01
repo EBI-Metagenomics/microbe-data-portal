@@ -21,7 +21,8 @@ import json
 from pathlib import Path
 from typing import Any, List
 
-from pydantic import BaseSettings, AnyHttpUrl, BaseModel
+from pydantic_settings import BaseSettings
+from pydantic import AnyHttpUrl, BaseModel
 
 
 def data_config_source(settings: BaseSettings) -> dict[str, Any]:

@@ -49,7 +49,6 @@ export_api = NinjaAPI(
     title="MICROBE Data Portal Export API",
     description="Download TSV exports of the MICROBE Data Portal data.",
     urls_namespace="export",
-    csrf=True,
     renderer=CSVRenderer(),
 )
 

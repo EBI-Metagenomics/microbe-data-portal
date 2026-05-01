@@ -9,7 +9,7 @@ website:
     page-footer: This project has received funding from the European Union’s
         Horizon Europe research and innovation programme under grant agreement
         No 101094353
-    favicon: img/hf-logo-brand.png
+    favicon: img/microbe-logo-brand.png
     page-navigation: true
 
     repo-url: https://github.com/ebi-metagenomics/microbe-data-portal

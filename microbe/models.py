@@ -1,6 +1,6 @@
+from __future__ import annotations
 import logging
 from typing import List
-
 from django.db import models
 from django.db.models import Prefetch, Count, Subquery, OuterRef, F
 from django.urls import reverse
@@ -34,6 +34,7 @@ class UseCase(models.Model):
     """
     A top-level system, such as SynComs (synthetic communities) or Cryopreservation.
     """
+
     SYNCOMS = "SynComs"
     CRYOPRESERVATION = "Cryopreservation"
     USE_CASE_CHOICES = [(SYNCOMS, SYNCOMS), (CRYOPRESERVATION, CRYOPRESERVATION)]
@@ -51,13 +52,18 @@ class Environment(models.Model):
     """
     A second level in the data hierarchy, representing the environment from which samples are collected.
     """
+
     SOIL = "Soil"
     SEED = "Seed"
     MARINE = "Marine"
     ENVIRONMENT_CHOICES = [(SOIL, SOIL), (SEED, SEED), (MARINE, MARINE)]
 
-    name = models.CharField(primary_key=True, choices=ENVIRONMENT_CHOICES, max_length=10)
-    use_case = models.ForeignKey(UseCase, on_delete=models.CASCADE, related_name="environments")
+    name = models.CharField(
+        primary_key=True, choices=ENVIRONMENT_CHOICES, max_length=10
+    )
+    use_case = models.ForeignKey(
+        UseCase, on_delete=models.CASCADE, related_name="environments"
+    )
 
     def __str__(self):
         return f"{self.use_case.name} - {self.name}"
@@ -113,7 +119,9 @@ class Sample(models.Model):
     accession = models.CharField(primary_key=True, max_length=15)
 
     title = models.CharField(max_length=200)
-    environment = models.ForeignKey(Environment, on_delete=models.CASCADE, related_name="samples")
+    environment = models.ForeignKey(
+        Environment, on_delete=models.CASCADE, related_name="samples"
+    )
 
     sample_type = models.CharField(
         max_length=20, choices=SAMPLE_TYPE_CHOICES, null=True, blank=True
@@ -360,7 +368,9 @@ class GenomeCatalogue(models.Model):
     title = models.CharField(max_length=100)
     biome = models.CharField(max_length=200)
     related_mag_catalogue_id = models.CharField(max_length=100)
-    use_case = models.CharField(choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False)
+    use_case = models.CharField(
+        choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False
+    )
 
 
 class Genome(models.Model):
@@ -428,7 +438,9 @@ class ViralCatalogue(models.Model):
         related_name="viral_catalogues",
         on_delete=models.SET_NULL,
     )
-    use_case = models.CharField(choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False)
+    use_case = models.CharField(
+        choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False
+    )
 
 
 class ViralFragmentClusterManager(models.Manager):

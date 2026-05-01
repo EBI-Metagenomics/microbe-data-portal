@@ -3,7 +3,6 @@ import pytest
 from microbe.models import (
     SampleStructuredDatum,
     SampleMetadataMarker,
-    AnimalStructuredDatum,
     Sample,
 )
 from microbe.tests.conftest import set_metabolights_project_for_sample
@@ -28,16 +27,16 @@ def test_animals_api_list_empty(client):
 
 @pytest.mark.django_db
 def test_animals_api_list(
-    client, salmon_animal, salmon_metagenomic_sample, salmon_metabolomic_sample
+    client, salmon_environment, salmon_metagenomic_sample, salmon_metabolomic_sample
 ):
     response = client.get("/api/animals")
     data = assert_response_has_n_items(response, 1)
 
     sample = data.get("items")[0]
-    assert sample.get("accession") == salmon_animal.accession
+    assert sample.get("accession") == salmon_environment.accession
     assert (
         sample.get("canonical_url")
-        == f"https://www.ebi.ac.uk/biosamples/{salmon_animal.accession}"
+        == f"https://www.ebi.ac.uk/biosamples/{salmon_environment.accession}"
     )
 
     assert len(sample.get("sample_types")) == 2
@@ -48,7 +47,7 @@ def test_animals_api_list(
 
 @pytest.mark.django_db
 def test_animals_api_list_filters(
-    client, salmon_animal, chicken_animal, salmon_metagenomic_sample
+    client, salmon_environment, chicken_environment, salmon_metagenomic_sample
 ):
     response = client.get("/api/animals?system=salmon")
     assert_response_has_n_items(response, 1)
@@ -66,8 +65,11 @@ def test_animals_api_list_filters(
     response = client.get("/api/animals?require_metadata_marker=roundness")
     assert_response_has_n_items(response, 0)
 
-    salmon_roundness = AnimalStructuredDatum.objects.create(
-        animal=salmon_animal, marker=roundness, measurement="unknown"
+    salmon_roundness = SampleStructuredDatum.objects.create(
+        sample=salmon_metagenomic_sample,
+        marker=roundness,
+        measurement="unknown",
+        source=SampleStructuredDatum.BIOSAMPLES,
     )
     response = client.get("/api/animals?require_metadata_marker=roundness")
     assert_response_has_n_items(response, 0)
@@ -81,15 +83,15 @@ def test_animals_api_list_filters(
 
 @pytest.mark.django_db
 def test_animal_api_detail(
-    client, salmon_animal, structured_metadata_marker, salmon_metagenomic_sample
+    client, salmon_environment, structured_metadata_marker, salmon_metagenomic_sample
 ):
     response = client.get("/api/animals/doesnotexist")
     assert response.status_code == 404
 
-    response = client.get(f"/api/animals/{salmon_animal.accession}")
+    response = client.get(f"/api/animals/{salmon_environment.accession}")
     assert response.status_code == 200
     data = response.json()
-    assert data.get("accession") == salmon_animal.accession
+    assert data.get("accession") == salmon_environment.accession
     assert data.get("system") == "salmon"
     assert len(data.get("samples")) == 1
     assert (
@@ -99,14 +101,14 @@ def test_animal_api_detail(
 
     assert len(data.get("structured_metadata")) == 0
 
-    salmon_animal.structured_metadata.create(
+    salmon_environment.structured_metadata.create(
         marker=structured_metadata_marker,
         measurement="really quite big",
         units="cm",
-        source=AnimalStructuredDatum.BIOSAMPLES,
+        source=SampleStructuredDatum.BIOSAMPLES,
     )
 
-    response = client.get(f"/api/animals/{salmon_animal.accession}")
+    response = client.get(f"/api/animals/{salmon_environment.accession}")
     assert response.status_code == 200
     data = response.json()
     assert len(data.get("structured_metadata")) == 1
@@ -114,23 +116,23 @@ def test_animal_api_detail(
 
 
 @pytest.mark.django_db
-def test_animals_export(client, salmon_animal):
+def test_animals_export(client, salmon_environment):
     response = client.get("/export/animals")
     assert response.status_code == 200
     data = response.content.decode()
     assert "accession" in data
-    assert salmon_animal.accession in data
+    assert salmon_environment.accession in data
 
 
 @pytest.mark.django_db
-def test_animal_metadata_export(client, salmon_animal, structured_metadata_marker):
-    salmon_animal.structured_metadata.create(
+def test_animal_metadata_export(client, salmon_environment, structured_metadata_marker):
+    salmon_environment.structured_metadata.create(
         marker=structured_metadata_marker,
         measurement="really quite big",
         units="cm",
-        source=AnimalStructuredDatum.BIOSAMPLES,
+        source=SampleStructuredDatum.BIOSAMPLES,
     )
-    response = client.get(f"/export/animals/{salmon_animal.accession}/metadata")
+    response = client.get(f"/export/animals/{salmon_environment.accession}/metadata")
     assert response.status_code == 200
     data = response.content.decode()
     assert "marker" in data
@@ -241,7 +243,7 @@ def test_samples_api_detail(
 
 @pytest.mark.django_db
 def test_sample_metadata_markers_api_list_filters(
-    client, salmon_animal, salmon_metabolomic_sample, structured_metadata_marker
+    client, salmon_environment, salmon_metabolomic_sample, structured_metadata_marker
 ):
     response = client.get("/api/sample_metadata_markers")
     assert_response_has_n_items(response, 1)
@@ -316,7 +318,7 @@ def test_sample_metadata_export(client, salmon_host_sample, structured_metadata_
         marker=structured_metadata_marker,
         measurement="really quite big",
         units="cm",
-        source=AnimalStructuredDatum.BIOSAMPLES,
+        source=SampleStructuredDatum.BIOSAMPLES,
     )
     response = client.get(f"/export/samples/{salmon_host_sample.accession}/metadata")
     assert response.status_code == 200

@@ -37,7 +37,6 @@ api = NinjaAPI(
     "- [TSV Export endpoints](/export/docs)",
     urls_namespace="api",
     default_router=RouterPaginated(),
-    csrf=True,
 )
 
 
@@ -70,17 +69,17 @@ class SampleType(Enum):
 class SampleMetadataMarkerSchema(ModelSchema):
     canonical_url: str = Field(None, alias="iri")
 
-    class Config:
+    class Meta:
         model = SampleMetadataMarker
-        model_fields = ["name", "type"]
+        fields = ["name", "type"]
 
 
 class SampleStructuredDatumSchema(ModelSchema):
     marker: SampleMetadataMarkerSchema
 
-    class Config:
+    class Meta:
         model = SampleStructuredDatum
-        model_fields = ["marker", "measurement", "units"]
+        fields = ["marker", "measurement", "units"]
 
 
 class RelatedAnalysisSummarySchema(ModelSchema):
@@ -90,21 +89,21 @@ class RelatedAnalysisSummarySchema(ModelSchema):
 
     canonical_url: str
 
-    class Config:
+    class Meta:
         model = AnalysisSummary
-        model_fields = ["title"]
+        fields = ["title"]
 
 
 class UseCaseSlimSchema(ModelSchema):
-    class Config:
+    class Meta:
         model = UseCase
-        model_fields = ["name"]
+        fields = ["name"]
 
 
 class EnvironmentSlimSchema(ModelSchema):
-    class Config:
+    class Meta:
         model = Environment
-        model_fields = ["name", "use_case"]
+        fields = ["name", "use_case"]
 
 
 class SampleSlimSchema(ModelSchema):
@@ -147,9 +146,9 @@ class SampleSlimSchema(ModelSchema):
 
     metabolomics_url: Optional[str]
 
-    class Config:
+    class Meta:
         model = Sample
-        model_fields = ["accession", "title", "sample_type", "environment"]
+        fields = ["accession", "title", "sample_type", "environment"]
 
 
 class SampleSchema(SampleSlimSchema):
@@ -168,9 +167,9 @@ class EnvironmentSchema(EnvironmentSlimSchema):
 class GenomeCatalogueSchema(ModelSchema):
     analysis_summaries: List[RelatedAnalysisSummarySchema]
 
-    class Config:
+    class Meta:
         model = GenomeCatalogue
-        model_fields = ["id", "title", "biome", "related_mag_catalogue_id", "use_case"]
+        fields = ["id", "title", "biome", "related_mag_catalogue_id", "use_case"]
 
 
 class GenomeSchema(ModelSchema):
@@ -180,9 +179,9 @@ class GenomeSchema(ModelSchema):
 
     representative_url: Optional[str]
 
-    class Config:
+    class Meta:
         model = Genome
-        model_fields = [
+        fields = [
             "accession",
             "cluster_representative",
             "taxonomy",
@@ -192,9 +191,9 @@ class GenomeSchema(ModelSchema):
 
 
 class GenomeSampleContainmentSchema(ModelSchema):
-    class Config:
+    class Meta:
         model = GenomeSampleContainment
-        model_fields = ["sample", "containment"]
+        fields = ["sample", "containment"]
 
 
 class GenomeWithContainingSamplesSchema(GenomeSchema):
@@ -214,9 +213,9 @@ class ViralCatalogueSchema(ModelSchema):
 
     related_genome_catalogue_url: str
 
-    class Config:
+    class Meta:
         model = ViralCatalogue
-        model_fields = ["id", "title", "biome", "use_case"]
+        fields = ["id", "title", "biome", "use_case"]
 
 
 class ViralFragmentSchema(ModelSchema):
@@ -230,7 +229,9 @@ class ViralFragmentSchema(ModelSchema):
 
     @staticmethod
     def resolve_mgnify_analysis_url(obj: ViralFragment):
-        return f"{microbe_config.mgnify.api_root}/analyses/{obj.mgnify_analysis_accession}"
+        return (
+            f"{microbe_config.mgnify.api_root}/analyses/{obj.mgnify_analysis_accession}"
+        )
 
     mgnify_analysis_url: AnyHttpUrl
 
@@ -240,9 +241,9 @@ class ViralFragmentSchema(ModelSchema):
 
     gff_url: str
 
-    class Config:
+    class Meta:
         model = ViralFragment
-        model_fields = [
+        fields = [
             "id",
             "contig_id",
             "mgnify_analysis_accession",
@@ -259,9 +260,9 @@ class AnalysisSummarySchema(RelatedAnalysisSummarySchema):
     genome_catalogues: List[GenomeCatalogueSchema]
     viral_catalogues: List[ViralCatalogueSchema]
 
-    class Config:
+    class Meta:
         model = AnalysisSummary
-        model_fields = ["title"]
+        fields = ["title"]
 
 
 @api.get(

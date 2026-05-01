@@ -118,7 +118,6 @@ class GenomeSampleContainmentFilter(django_filters.FilterSet):
 
         fields = {
             "sample__accession": ["icontains"],
-            "sample__animal__accession": ["icontains"],
         }
 
 

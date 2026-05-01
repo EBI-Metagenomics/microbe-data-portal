@@ -58,7 +58,7 @@ LOGGING = {
     },
 }
 
-ALLOWED_HOSTS = [os.getenv("DATA_PORTAL_URL", "127.0.0.1")]
+ALLOWED_HOSTS = [os.getenv("DATA_PORTAL_URL", "127.0.0.1"), "localhost"]
 CSRF_TRUSTED_ORIGINS = [
     "https://" + os.getenv("DATA_PORTAL_URL", "127.0.0.1"),
     "http://" + os.getenv("DATA_PORTAL_URL", "127.0.0.1"),
@@ -196,6 +196,9 @@ STATICFILES_FINDERS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, "static")
+SASS_PROCESSOR_ENABLED = True
+
 STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -244,7 +247,7 @@ MARTOR_TOOLBAR_BUTTONS = [
 NINJA_PAGINATION_CLASS: str = "ninja.pagination.PageNumberPagination"
 
 UNFOLD = {
-    "SITE_ICON": lambda request: static("img/icons/hf-logo-brand.png"),
+    "SITE_ICON": lambda request: static("img/icons/microbe-logo-brand.png"),
     "COLORS": {
         "primary": {
             "900": "8 80 37",
