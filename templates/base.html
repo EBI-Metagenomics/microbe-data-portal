@@ -111,28 +111,44 @@
             <li class="vf-navigation__item">
                 <a href="{% url 'home' %}"
                    class="vf-navigation__link">
-                Home</a>
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/microbe-logo-brand.png' %}" alt="">
+                    Home</a>
             </li>
             <li class="vf-navigation__item">
+                <a href="{% url 'samples_list' %}?use_case=SynComs" class="vf-navigation__link">
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
+                    SynCom Samples</a>
+            </li>
+            <li class="vf-navigation__item nav-item-cluster nav-item-cluster__primary">
                 <a href="{% url 'samples_list' %}"
                    class="vf-navigation__link">
-                Samples</a>
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
+                    Environmental Samples</a>
+            </li>
+            <li class="vf-navigation__item nav-item-cluster">
+                <a href="{% url 'samples_list' %}?environment=Soil" class="vf-navigation__link">
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/soil.svg' %}" alt="">
+                    Soil</a>
+            </li>
+            <li class="vf-navigation__item nav-item-cluster">
+                <a href="{% url 'samples_list' %}?environment=Seed" class="vf-navigation__link">
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/seed.svg' %}" alt="">
+                    Seed</a>
+            </li>
+            <li class="vf-navigation__item nav-item-cluster">
+                <a href="{% url 'samples_list' %}?environment=Marine" class="vf-navigation__link">
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/marine.svg' %}" alt="">
+                    Marine</a>
             </li>
             <li class="vf-navigation__item">
                 <a href="{% url 'analysis_summary_list' %}" class="vf-navigation__link">
-                Analysis summaries</a>
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/book.svg' %}" alt="">
+                    Analysis summaries</a>
             </li>
             <li class="vf-navigation__item">
                 <a href="{% url 'api:openapi-view' %}" class="vf-navigation__link">
-                API</a>
-            </li>
-            <li class="vf-navigation__item">
-                <a href="{% url 'genome_catalogues' %}" class="vf-navigation__link">
-                Genomes</a>
-            </li>
-            <li class="vf-navigation__item">
-                <a href="{% url 'viral_catalogues' %}" class="vf-navigation__link">
-                Viruses</a>
+                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/code.svg' %}" alt="">
+                    API</a>
             </li>
         </ul>
     </nav>

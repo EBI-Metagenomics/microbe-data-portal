@@ -111,6 +111,47 @@ img.nav-icon {
 	padding-right: 0.2em;
 }
 
+li.vf-navigation__item.nav-item-cluster {
+    border: 2px solid var(--vf-color--grey);
+	padding: 0 8px;
+}
+
+li.nav-item-cluster {
+  // Default for a one-item cluster, or the start of a run.
+  margin: 8px 0 8px 8px !important;
+
+  // Any cluster item preceded by another cluster item: remove the left gap and border.
+  &.nav-item-cluster + .nav-item-cluster {
+    margin-left: 0 !important;
+	border-left: none;
+  }
+
+  // Any cluster item followed by another cluster item: remove the right gap.
+  &:has(+ .nav-item-cluster) {
+    margin-right: 0 !important;
+  }
+
+  // First item in a consecutive run of clustered nav items.
+  &:not(.nav-item-cluster + .nav-item-cluster) {
+    border-radius: 8px 0 0 8px !important;
+  }
+
+  // Middle items in a consecutive run of clustered nav items.
+  &.nav-item-cluster + .nav-item-cluster:has(+ .nav-item-cluster) {
+    border-radius: 0;
+  }
+
+  // Last item in a consecutive run of clustered nav items.
+  &:not(:has(+ .nav-item-cluster)) {
+    margin-right: 8px !important;;
+    border-radius: 0 8px 8px 0;
+  }
+
+	&:not(.nav-item-cluster__primary) {
+		background-color: var(--vf-color--neutral--100);
+	}
+}
+
 a.inline, button.inline {
 	margin: 0;
 	padding: 0;

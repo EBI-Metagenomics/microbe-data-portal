@@ -42,17 +42,7 @@ from microbe.views import (
     AnalysisSummaryDetailView,
     AnalysisSummaryListView,
     HomeView,
-    GenomeCatalogueView,
-    GenomeCataloguesView,
-    ViralCataloguesView,
-    ViralCatalogueView,
-    ViralCatalogueFragmentView,
-    ViralSequenceAnnotationView,
     GlobalSearchView,
-    UseCaseListView,
-    UseCaseDetailView,
-    ViralCataloguesEmptyStateView,
-    GenomeDetailView,
 )
 
 admin.site.site_header = "MICROBE Data Portal Admin"
@@ -64,8 +54,6 @@ urlpatterns = [
     path("martor/", include("martor.urls")),
     path("samples/", SampleListView.as_view(), name="samples_list"),
     path("sample/<str:pk>", SampleDetailView.as_view(), name="sample_detail"),
-    path("use-cases/", UseCaseListView.as_view(), name="use_cases_list"),
-    path("use-case/<str:pk>", UseCaseDetailView.as_view(), name="use_case_detail"),
     path(
         "analysis-summaries/",
         AnalysisSummaryListView.as_view(),
@@ -76,41 +64,9 @@ urlpatterns = [
         AnalysisSummaryDetailView.as_view(),
         name="analysis_summary_detail",
     ),
-    path(
-        "genome-catalogue/<str:pk>",
-        GenomeCatalogueView.as_view(),
-        name="genome_catalogue",
-    ),
-    path("genome-catalogues", GenomeCataloguesView.as_view(), name="genome_catalogues"),
-    path(
-        "genome-catalogue/<str:catalogue_pk>/<str:pk>",
-        GenomeDetailView.as_view(),
-        name="genome_detail",
-    ),
-    path(
-        "viral-catalogue/<str:pk>",
-        ViralCatalogueView.as_view(),
-        name="viral_catalogue",
-    ),
-    path(
-        "viral-catalogue/<str:pk>/<str:viral_fragment_pk>",
-        ViralCatalogueFragmentView.as_view(),
-        name="viral_catalogue_fragment",
-    ),
-    path("viral-catalogues", ViralCataloguesView.as_view(), name="viral_catalogues"),
-    path(
-        "viral-catalogues-redirect",
-        ViralCataloguesEmptyStateView.as_view(),
-        name="viral_catalogues_empty_state",
-    ),
     path("search/", GlobalSearchView.as_view(), name="global_search"),
     path("api/", api.urls),
     path("export/", export_api.urls),
-    path(
-        "viral-sequence-gff/<str:pk>",
-        ViralSequenceAnnotationView.as_view(),
-        name="viral_fragment_gff",
-    ),
 ]
 
 if settings.DEBUG:

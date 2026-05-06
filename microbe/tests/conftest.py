@@ -12,97 +12,71 @@ from microbe.models import (
     ViralCatalogue,
     ViralFragment,
     SampleStructuredDatum,
-    Environment,
-    UseCase,
     GenomeSampleContainment,
 )
 
 
 @pytest.fixture()
-def salmon_use_case():
-    return UseCase.objects.create(
-        name="Salmon",
-    )
-
-
-@pytest.fixture()
-def salmon_environment(salmon_use_case):
-    return Environment.objects.create(
-        name="Atlantic Salmon",
-        use_case=salmon_use_case,
-    )
-
-
-@pytest.fixture()
-def chicken_use_case():
-    return UseCase.objects.create(
-        name="Chicken",
-    )
-
-
-@pytest.fixture()
-def chicken_environment(chicken_use_case):
-    return Environment.objects.create(
-        name="Broiler Chicken",
-        use_case=chicken_use_case,
-    )
-
-
-@pytest.fixture()
-def salmon_metagenomic_sample(salmon_environment):
+def salmon_metagenomic_sample():
     return Sample.objects.create(
         accession="SAMEA00000002",
         title="HF_DONUT.SALMON.METAG",
-        environment=salmon_environment,
+        use_case=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.Environment.MARINE,
         sample_type=Sample.METAGENOMIC_ASSEMBLY,
     )
 
 
 @pytest.fixture()
-def salmon_metabolomic_sample(salmon_environment):
+def salmon_metabolomic_sample():
     return Sample.objects.create(
         accession="SAMEA00000003",
-        environment=salmon_environment,
+        use_case=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.Environment.MARINE,
         sample_type=Sample.METABOLOMIC,
         title="HF_DONUT.SALMON.METAB",
     )
 
 
 @pytest.fixture()
-def salmon_histological_sample(salmon_environment):
+def salmon_histological_sample():
     return Sample.objects.create(
         accession="SAMEA00000004",
-        environment=salmon_environment,
+        use_case=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.Environment.MARINE,
         sample_type=Sample.HISTOLOGICAL,
         title="HF_DONUT.SALMON.HIST",
     )
 
 
 @pytest.fixture()
-def salmon_host_sample(salmon_environment):
+def salmon_host_sample():
     return Sample.objects.create(
         accession="SAMEA00000005",
-        environment=salmon_environment,
+        use_case=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.Environment.MARINE,
         sample_type=Sample.HOST_GENOMIC,
         title="HF_DONUT.SALMON.HOST",
     )
 
 
 @pytest.fixture()
-def chicken_metagenomic_sample(chicken_environment):
+def chicken_metagenomic_sample():
     return Sample.objects.create(
         accession="SAMEA00000006",
         title="HF_DONUT.CHICKEN.METAG",
-        environment=chicken_environment,
+        use_case=Sample.UseCase.SYNCOMS,
+        environment=Sample.Environment.SOIL,
         sample_type=Sample.METAGENOMIC_ASSEMBLY,
     )
 
 
 @pytest.fixture()
-def chicken_metabolomic_sample(chicken_environment):
+def chicken_metabolomic_sample():
     return Sample.objects.create(
         accession="SAMEA00000007",
-        environment=chicken_environment,
+        use_case=Sample.UseCase.SYNCOMS,
+        environment=Sample.Environment.SOIL,
         sample_type=Sample.METABOLOMIC,
         title="HF_DONUT.CHICKEN.METAB",
         metabolights_study="MTBLSDONUT",
@@ -110,20 +84,22 @@ def chicken_metabolomic_sample(chicken_environment):
 
 
 @pytest.fixture()
-def chicken_histological_sample(chicken_environment):
+def chicken_histological_sample():
     return Sample.objects.create(
         accession="SAMEA00000008",
-        environment=chicken_environment,
+        use_case=Sample.UseCase.SYNCOMS,
+        environment=Sample.Environment.SOIL,
         sample_type=Sample.HISTOLOGICAL,
         title="HF_DONUT.CHICKEN.HIST",
     )
 
 
 @pytest.fixture()
-def chicken_host_sample(chicken_environment):
+def chicken_host_sample():
     return Sample.objects.create(
         accession="SAMEA00000009",
-        environment=chicken_environment,
+        use_case=Sample.UseCase.SYNCOMS,
+        environment=Sample.Environment.SOIL,
         sample_type=Sample.HOST_GENOMIC,
         title="HF_DONUT.CHICKEN.HOST",
     )
@@ -1227,28 +1203,20 @@ def LiveTests(request):
     GenomeCatalogue.objects.all().delete()
     ViralCatalogue.objects.all().delete()
 
-    Fixtures.use_cases = [
-        UseCase.objects.create(name="Salmon"),
-    ]
-    Fixtures.environments = [
-        Environment.objects.create(
-            name="Atlantic Salmon",
-            use_case=Fixtures.use_cases[0],
-        )
-    ]
-
     Fixtures.samples = [
         Sample.objects.create(
             accession="SAMEA00000002",
             title="metabolomic extraction",
-            environment=Fixtures.environments[0],
+            use_case=Sample.UseCase.CRYOPRESERVATION,
+            environment=Sample.Environment.MARINE,
             sample_type=Sample.METABOLOMIC,
             metabolights_study="MTBLSDONUT",
         ),
         Sample.objects.create(
             accession="SAMEA00000003",
             title="metagenomic extraction",
-            environment=Fixtures.environments[0],
+            use_case=Sample.UseCase.CRYOPRESERVATION,
+            environment=Sample.Environment.MARINE,
             sample_type=Sample.METAGENOMIC_ASSEMBLY,
         ),
     ]

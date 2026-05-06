@@ -9,12 +9,8 @@ from ninja.renderers import BaseRenderer
 from microbe.api import (
     SampleSlimSchema,
     SampleStructuredDatumSchema,
-    GenomeSchema,
-    ViralFragmentSchema,
-    UseCaseSlimSchema,
-    GenomeSampleContainmentSchema,
 )
-from microbe.models import Sample, GenomeCatalogue, ViralCatalogue, UseCase, Genome
+from microbe.models import Sample
 
 
 class CSVRenderer(BaseRenderer):
@@ -75,56 +71,3 @@ def list_samples(
 def get_sample_metadata(request, sample_accession: str):
     sample = get_object_or_404(Sample, accession=sample_accession)
     return sample.structured_metadata.all()
-
-
-@export_api.get(
-    "/use-cases",
-    response=List[UseCaseSlimSchema],
-    summary="Fetch a list of Use Cases as a TSV",
-    url_name="use_cases_list",
-)
-def list_use_cases(
-    request,
-):
-    return UseCase.objects.all()
-
-
-@export_api.get(
-    "/genome-catalogues/{catalogue_id}/genomes",
-    response=List[GenomeSchema],
-    summary="Fetch the list of Genomes from a Catalogue as a TSV",
-    description="Download a TSV export of the Genome Catalogue MAGs",
-    url_name="genomes_list",
-)
-def list_genome_catalogue_genomes(request, catalogue_id: str):
-    catalogue = get_object_or_404(GenomeCatalogue, id=catalogue_id)
-    return catalogue.genomes.all()
-
-
-@export_api.get(
-    "/genome-catalogues/{genome_catalogue_id}/genomes/{genome_id}/samples_containing",
-    response=List[GenomeSampleContainmentSchema],
-    summary="Fetch the list of Samples contained by a Genome, as a TSV",
-    description="A Genomes is a Metagenomic Assembled Genome (MAG)."
-    "Each MAG originates from MICROBE samples."
-    "Each MAG has also been clustered with MAGs from other projects."
-    "Each MICROBE MAG references the best representative of these clusters, in MGnify."
-    "Each species representative MAG has also been searched in all of the project samples, "
-    "to find samples which contain the kmers of genome.",
-    url_name="get_samples_containing_genome",
-)
-def get_genome(request, genome_catalogue_id: str, genome_id: str):
-    genome = get_object_or_404(Genome, accession=genome_id)
-    return genome.samples_containing
-
-
-@export_api.get(
-    "/viral-catalogues/{catalogue_id}/fragments",
-    response=List[ViralFragmentSchema],
-    summary="Fetch the list of Viral Fragments (sequences) from a Catalogue as a TSV",
-    description="Download a TSV export of the Viral Catalogue fragments",
-    url_name="viral_fragments_list",
-)
-def list_viral_catalogue_fragments(request, catalogue_id: str):
-    catalogue = get_object_or_404(ViralCatalogue, id=catalogue_id)
-    return catalogue.viral_fragments.all()

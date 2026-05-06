@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 import logging
 from typing import List
+
 from django.db import models
-from django.db.models import Prefetch, Count, Subquery, OuterRef, F
 from django.urls import reverse
 from django.utils.text import slugify
 from martor.models import MartorField
@@ -14,77 +15,29 @@ from microbe.external_apis.biosamples.api import (
 from microbe.external_apis.ena.browser_api import get_checklist_metadata
 from microbe.external_apis.ena.portal_api import get_filereport
 from microbe.external_apis.metabolights.api import get_metabolights_assays
-
 from microbe.external_apis.mgnify.api import MgnifyApi
-from microbe.utils import microbe_config, DistinctFunc
 
 _mgnify = MgnifyApi()
 
 
 class SampleManager(models.Manager):
     def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .select_related("environment", "environment__use_case")
-        )
-
-
-class UseCase(models.Model):
-    """
-    A top-level system, such as SynComs (synthetic communities) or Cryopreservation.
-    """
-
-    SYNCOMS = "SynComs"
-    CRYOPRESERVATION = "Cryopreservation"
-    USE_CASE_CHOICES = [(SYNCOMS, SYNCOMS), (CRYOPRESERVATION, CRYOPRESERVATION)]
-
-    name = models.CharField(primary_key=True, choices=USE_CASE_CHOICES, max_length=20)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ("name",)
-
-
-class Environment(models.Model):
-    """
-    A second level in the data hierarchy, representing the environment from which samples are collected.
-    """
-
-    SOIL = "Soil"
-    SEED = "Seed"
-    MARINE = "Marine"
-    ENVIRONMENT_CHOICES = [(SOIL, SOIL), (SEED, SEED), (MARINE, MARINE)]
-
-    name = models.CharField(
-        primary_key=True, choices=ENVIRONMENT_CHOICES, max_length=10
-    )
-    use_case = models.ForeignKey(
-        UseCase, on_delete=models.CASCADE, related_name="environments"
-    )
-
-    def __str__(self):
-        return f"{self.use_case.name} - {self.name}"
-
-    class Meta:
-        ordering = ("name",)
-
-
-class SampleManager(models.Manager):
-    def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .select_related("environment", "environment__use_case")
-        )
+        return super().get_queryset()
 
 
 class Sample(models.Model):
     """
-    An extraction-level BioSample, associated with an Environment and UseCase.
+    An extraction-level BioSample.
     """
+
+    class UseCase(models.TextChoices):
+        SYNCOMS = "SynComs", "SynComs"
+        CRYOPRESERVATION = "Cryopreservation", "Cryopreservation"
+
+    class Environment(models.TextChoices):
+        SOIL = "Soil", "Soil"
+        SEED = "Seed", "Seed"
+        MARINE = "Marine", "Marine"
 
     METAGENOMIC_ASSEMBLY = "metagenomic_assembly"
     METAGENOMIC_AMPLICON = "metagenomic_amplicon"
@@ -119,8 +72,11 @@ class Sample(models.Model):
     accession = models.CharField(primary_key=True, max_length=15)
 
     title = models.CharField(max_length=200)
-    environment = models.ForeignKey(
-        Environment, on_delete=models.CASCADE, related_name="samples"
+    use_case = models.CharField(
+        max_length=20, choices=UseCase.choices, null=True, blank=True
+    )
+    environment = models.CharField(
+        max_length=10, choices=Environment.choices, null=True, blank=True
     )
 
     sample_type = models.CharField(
@@ -331,12 +287,6 @@ class AnalysisSummary(models.Model):
     samples = models.ManyToManyField(
         Sample, related_name="analysis_summaries", blank=True
     )
-    genome_catalogues = models.ManyToManyField(
-        "GenomeCatalogue", related_name="analysis_summaries", blank=True
-    )
-    viral_catalogues = models.ManyToManyField(
-        "ViralCatalogue", related_name="analysis_summaries", blank=True
-    )
     author = models.CharField(max_length=200)
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -356,140 +306,3 @@ class AnalysisSummary(models.Model):
     class Meta:
         verbose_name_plural = "analysis summaries"
         permissions = [("publish_annotation", "Can publish an analysis summary")]
-
-
-class GenomeCatalogue(models.Model):
-    """
-    A collection of draft genomes, as a subset of a "related mag catalogue", which is a MAG catalogue
-    on MGnify (https://www.ebi.ac.uk/metagenomics)
-    """
-
-    id = models.CharField(primary_key=True, max_length=32)
-    title = models.CharField(max_length=100)
-    biome = models.CharField(max_length=200)
-    related_mag_catalogue_id = models.CharField(max_length=100)
-    use_case = models.CharField(
-        choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False
-    )
-
-
-class Genome(models.Model):
-    """
-    A draft genome assembled from the metagenomic samples.
-    Points to a genome accession on MGnify.
-    """
-
-    accession = models.CharField(primary_key=True, max_length=15)
-    cluster_representative = models.CharField(max_length=15)
-    catalogue = models.ForeignKey(
-        GenomeCatalogue, on_delete=models.CASCADE, related_name="genomes"
-    )
-    taxonomy = models.CharField(max_length=200)
-    metadata = models.JSONField(default=dict, blank=True)
-    annotations = models.JSONField(default=dict, blank=True)
-
-    class Meta:
-        ordering = ("accession",)
-
-
-class GenomeSampleContainmentManager(models.Manager):
-    def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .select_related("sample", "sample__environment", "genome")
-        )
-
-
-class GenomeSampleContainment(models.Model):
-    """
-    An instance of a genome being present ("contained") within a metagenomic sample.
-    """
-
-    sample = models.ForeignKey(
-        Sample, on_delete=models.CASCADE, related_name="genomes_contained"
-    )
-    genome = models.ForeignKey(
-        Genome, on_delete=models.CASCADE, related_name="samples_containing"
-    )
-    containment = models.FloatField(default=0)
-
-    objects = GenomeSampleContainmentManager()
-
-    class Meta:
-        ordering = ("genome", "-containment")
-
-    def __str__(self):
-        return f"Containment of {self.genome} in {self.sample}"
-
-
-class ViralCatalogue(models.Model):
-    """
-    A collection of (probable) viral fragments detected in the metagenomic reads.
-    """
-
-    id = models.CharField(primary_key=True, max_length=32)
-    title = models.CharField(max_length=100)
-    biome = models.CharField(max_length=200)
-    related_genome_catalogue = models.ForeignKey(
-        GenomeCatalogue,
-        null=True,
-        blank=True,
-        related_name="viral_catalogues",
-        on_delete=models.SET_NULL,
-    )
-    use_case = models.CharField(
-        choices=UseCase.USE_CASE_CHOICES, max_length=20, null=False
-    )
-
-
-class ViralFragmentClusterManager(models.Manager):
-    def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .annotate(representative_of_cluster_size=models.Count("cluster_members"))
-        )
-
-
-class ViralFragment(models.Model):
-    """
-    A probable viral section of DNA found in a contig assembled from the metagenomic samples.
-    If the fragment maps to a MAG Genome, that is also linked.
-    Contig details are linked to the MGnify Analysis (MGYA) and contig.
-    Fragment are clustered by nucleotide identity, so some are cluster representatives for others.
-    """
-
-    objects = ViralFragmentClusterManager()
-
-    PROPHAGE = "prophage"
-    VIRAL_SEQUENCE = "viral_sequence"
-    VIRAL_TYPE_CHOICES = [(VIRAL_SEQUENCE, VIRAL_SEQUENCE), (PROPHAGE, PROPHAGE)]
-
-    id = models.CharField(primary_key=True, max_length=100, verbose_name="ID")
-    catalogue = models.ForeignKey(
-        ViralCatalogue, on_delete=models.CASCADE, related_name="viral_fragments"
-    )
-    cluster_representative = models.ForeignKey(
-        "self",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="cluster_members",
-    )
-    contig_id = models.CharField(max_length=100, verbose_name="Contig ID")
-    mgnify_analysis_accession = models.CharField(max_length=12)
-    start_within_contig = models.IntegerField()
-    end_within_contig = models.IntegerField()
-    metadata = models.JSONField(default=dict, blank=True)
-    viral_type = models.CharField(choices=VIRAL_TYPE_CHOICES, max_length=15)
-    taxonomy = models.CharField(null=True, blank=True, max_length=100)
-
-    gff = models.TextField(blank=True, default="")
-
-    @property
-    def is_cluster_representative(self):
-        return self.cluster_representative is None
-
-    class Meta:
-        ordering = ("id",)

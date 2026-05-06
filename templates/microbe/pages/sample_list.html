@@ -18,15 +18,6 @@
           Samples
         </li>
       </ul>
-
-      <span class="vf-breadcrumbs__heading">Related:</span>
-
-      <ul class="vf-breadcrumbs__list vf-breadcrumbs__list--related | vf-list vf-list--inline">
-        <li class="vf-breadcrumbs__item">
-          <a href="{% url 'use_cases_list' %}" class="vf-breadcrumbs__link">Use cases</a>
-        </li>
-      </ul>
-
     </nav>
     <div class="vf-sidebar vf-sidebar--start vf-sidebar--800">
         <div class="vf-sidebar__inner">
@@ -37,7 +28,7 @@
             </div>
             <div>
                 <h2>Samples</h2>
-                <p class="vf-text-body vf-text-body--5">Samples listed are extraction-level BioSamples, associated with <a class="vf-link" href="{% url 'use_cases_list' %}">use cases</a> and environments across MICROBE project.</p>
+                <p class="vf-text-body vf-text-body--5">Samples listed are extraction-level BioSamples, associated with use cases and environments across MICROBE project.</p>
                 <a class="vf-button vf-button--link vf-button--sm"
                    href="{% url 'export:samples_list' %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
                 <div class="scrollable-container">
@@ -45,7 +36,7 @@
                         <thead class="vf-table__header">
                             <tr class="vf-table__row">
                                 {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Sample accession" param="accession" %}
-                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Use case" param="environment__use_case" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Use case" param="use_case" %}
                                 {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Environment" param="environment" %}
                                 {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Sample type" param="sample_type" %}
                                 {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Detail" param="" %}
@@ -58,9 +49,23 @@
                                         <a class="vf-link" href="{% url 'sample_detail' pk=sample.accession %}">{{ sample.accession }}</a>
                                     </td>
                                     <td class="vf-table__cell">
-                                        <a class="vf-link" href="{% url 'use_case_detail' pk=sample.environment.use_case.name %}">{{ sample.environment.use_case.name }}</a>
+                                        {% if sample.use_case == "SynComs" %}
+                                            <img class="vf-icon vf-icon--24" src="{% static 'img/icons/syncom.svg' %}" alt="SynComs">
+                                        {% elif sample.use_case == "Cryopreservation" %}
+                                            <img class="vf-icon vf-icon--24" src="{% static 'img/icons/cryo.svg' %}" alt="Cryopreservation">
+                                        {% endif %}
+                                        {{ sample.use_case }}
                                     </td>
-                                    <td class="vf-table__cell">{{ sample.environment.name }}</td>
+                                    <td class="vf-table__cell">
+                                        {% if sample.environment == "Soil" %}
+                                            <img class="vf-icon vf-icon--24" src="{% static 'img/icons/soil.svg' %}" alt="Soil">
+                                        {% elif sample.environment == "Seed" %}
+                                            <img class="vf-icon vf-icon--24" src="{% static 'img/icons/seed.svg' %}" alt="Seed">
+                                        {% elif sample.environment == "Marine" %}
+                                            <img class="vf-icon vf-icon--24" src="{% static 'img/icons/marine.svg' %}" alt="Marine">
+                                        {% endif %}
+                                        {{ sample.environment }}
+                                    </td>
                                     <td class="vf-table__cell">{% include "microbe/components/atoms/sample_type.html" with sample=sample only %}</td>
                                     <td class="vf-table__cell">
                                         <a class="vf-button vf-button--link vf-button--sm"

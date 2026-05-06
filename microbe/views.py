@@ -6,36 +6,23 @@ from typing import List, Type
 import requests
 from django.core.paginator import Paginator
 from django.db.models import Q, Model, CharField, QuerySet, TextField
-from django.http import Http404, StreamingHttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
     ListView,
     DetailView,
     TemplateView,
-    RedirectView,
 )
-from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import MultipleObjectMixin
 
 from microbe.external_apis.mgnify.api import MgnifyApi
 from microbe.filters import (
     SampleFilter,
     MultiFieldSearchFilter,
-    GenomeFilter,
-    ViralFragmentFilter,
-    UseCaseFilter,
-    GenomeSampleContainmentFilter,
 )
 from microbe.models import (
     Sample,
     AnalysisSummary,
-    GenomeCatalogue,
-    ViralCatalogue,
-    ViralFragment,
-    Genome,
-    UseCase,
-    Environment,
 )
 from microbe.utils import microbe_config, find_by_path, write_signpost
 
@@ -155,27 +142,6 @@ class SampleDetailView(SignpostedDetailView):
         return context
 
 
-class UseCaseListView(ListFilterView):
-    model = UseCase
-    context_object_name = "use_cases"
-    paginate_by = 10
-    template_name = "microbe/pages/use_case_list.html"
-    filterset_class = UseCaseFilter
-    ordering = "name"
-
-
-class UseCaseDetailView(SignpostedDetailView):
-    model = UseCase
-    context_object_name = "use_case"
-    template_name = "microbe/pages/use_case_detail.html"
-
-    api_url_name = "api:use_case_detail"
-    api_url_args_from_context_path = {"use_case_name": "object.pk"}
-
-    def get_queryset(self):
-        return super().get_queryset()
-
-
 class CustomPaginator(Paginator):
     page_param = "page"
 
@@ -196,8 +162,6 @@ class AnalysisSummaryDetailView(DetailView):
 
         for related_object_type in [
             "samples",
-            "genome_catalogues",
-            "viral_catalogues",
         ]:
             objects = getattr(model, related_object_type).all()
             objects_paginated = CustomPaginator(
@@ -229,8 +193,6 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["samples_count"] = Sample.objects.count()
-        context["mags_count"] = Genome.objects.count()
-        context["viral_count"] = ViralFragment.objects.count()
         context["analysis_summaries_count"] = AnalysisSummary.objects.filter(
             is_published=True
         ).count()
@@ -265,137 +227,6 @@ class DetailViewWithPaginatedRelatedList(DetailView, MultipleObjectMixin):
         context_related_name = self.context_related_objects_name or self.related_name
         context[context_related_name] = context["object_list"]
         return context
-
-
-class GenomeCatalogueView(SignpostedDetailView, DetailViewWithPaginatedRelatedList):
-    model = GenomeCatalogue
-    context_object_name = "catalogue"
-    paginate_by = 10
-    template_name = "microbe/pages/genome_catalogue_detail.html"
-    filterset_class = GenomeFilter
-
-    related_name = "genomes"
-    related_ordering = "accession"
-
-    api_url_name = "api:get_genome_catalogue"
-    api_url_args_from_context_path = {"catalogue_id": "object.pk"}
-    api_list_url_name = "api:list_genome_catalogues"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["catalogues"] = GenomeCatalogue.objects.all()
-        return context
-
-
-class GenomeCataloguesView(RedirectView):
-    permanent = False
-
-    def get_redirect_url(self, *args, **kwargs):
-        catalogue = GenomeCatalogue.objects.first()
-        if not catalogue:
-            raise Http404
-        return reverse("genome_catalogue", kwargs={"pk": catalogue.id})
-
-
-class GenomeDetailView(SignpostedDetailView, DetailViewWithPaginatedRelatedList):
-    model = Genome
-    context_object_name = "genome"
-    paginate_by = 10
-    template_name = "microbe/pages/genome_detail.html"
-    filterset_class = GenomeSampleContainmentFilter
-
-    related_name = "samples_containing"
-    related_ordering = "-containment"
-
-    api_url_name = "api:get_genome"
-    api_url_args_from_context_path = {
-        "genome_id": "object.pk",
-        "genome_catalogue_id": "object.catalogue_id",
-    }
-    api_list_url_name = "api:list_genome_catalogues"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["catalogue"] = get_object_or_404(
-            GenomeCatalogue, id=self.kwargs.get("catalogue_pk")
-        )
-        cazy = self.object.annotations.get("cazy")
-        if cazy:
-            cazy_categories = {
-                "GH": "Glycoside Hydrolase",
-                "CB": "Carbohydrate-Binding",
-                "PL": "Polysaccharide Lyases",
-                "CE": "Carbohydrate Esterases",
-                "AA": "Auxiliary Activities",
-                "GT": "GlycosylTransferases",
-            }
-            context["cazy_annotations"] = {
-                cazy_categories[cat]: count
-                for cat, count in cazy.items()
-                if cat in cazy_categories
-            }
-        else:
-            context["cazy_annotations"] = {}
-        return context
-
-
-class ViralCatalogueView(DetailViewWithPaginatedRelatedList):
-    model = ViralCatalogue
-    context_object_name = "catalogue"
-    paginate_by = 10
-    template_name = "microbe/pages/viral_catalogue_detail.html"
-    filterset_class = ViralFragmentFilter
-
-    related_name = "viral_fragments"
-    related_ordering = "id"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["catalogues"] = ViralCatalogue.objects.all()
-        context["SHOWALL"] = ViralFragmentFilter.ALL
-        return context
-
-
-class ViralCatalogueFragmentView(ViralCatalogueView):
-    def get_context_data(self, **kwargs):
-        context = super(ViralCatalogueFragmentView, self).get_context_data(**kwargs)
-        fragment = get_object_or_404(
-            ViralFragment, id=self.kwargs.get("viral_fragment_pk")
-        )
-        context["selected_viral_fragment"] = fragment
-        return context
-
-
-class ViralCataloguesView(RedirectView):
-    permanent = False
-
-    def get_redirect_url(self, *args, **kwargs):
-        catalogue = ViralCatalogue.objects.first()
-        if not catalogue:
-            return reverse("viral_catalogues_empty_state")
-        return reverse("viral_catalogue", kwargs={"pk": catalogue.id})
-
-
-class ViralCataloguesEmptyStateView(TemplateView):
-    template_name = "microbe/pages/viral_catalogues_empty_state.html"
-
-
-class ViralSequenceAnnotationView(BaseDetailView):
-    queryset = ViralFragment.objects
-
-    def render_to_response(self, context):
-        obj: ViralFragment = context["object"]
-
-        def stream_annotations(gff: str):
-            annotations = gff.splitlines()
-            for anno in annotations:
-                yield anno + "\n"
-
-        response = StreamingHttpResponse(
-            stream_annotations(obj.gff), content_type="text/x-gff3"
-        )
-        response["Content-Disposition"] = f"attachment; filename={obj.id}.gff"
-        return response
 
 
 class GlobalSearchView(TemplateView):
@@ -462,20 +293,6 @@ class GlobalSearchView(TemplateView):
         ):
             logging.info(f"{query_upper} is a sample accession. Redirecting.")
             return reverse("sample_detail", args=[query_upper])
-        if (
-            query_upper.startswith("SAM")
-            and UseCase.objects.filter(pk=query_upper).exists()
-        ):
-            logging.info(f"{query_upper} is a use case. Redirecting.")
-            return reverse("use_case_detail", args=[query_upper])
-        if query_upper.startswith("MGYG"):
-            mag = Genome.objects.filter(accession=query_upper).first()
-            if mag:
-                logging.info(f"{query_upper} is a MAG accession. Redirecting.")
-                return (
-                    reverse("genome_catalogue", args=[mag.catalogue_id])
-                    + f"?accession__icontains={mag.accession}"
-                )
 
     def get(self, request, *args, **kwargs):
         query = self.request.GET.get("query")
@@ -489,11 +306,6 @@ class GlobalSearchView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["query"] = self.request.GET.get("query")
         context["samples"] = self.multi_search_model(Sample)
-        context["use_cases"] = self.multi_search_model(UseCase)
-        context["mag_catalogues"] = self.multi_search_model(GenomeCatalogue)
-        context["mags"] = self.multi_search_model(Genome)
-        context["viral_catalogues"] = self.multi_search_model(ViralCatalogue)
-        context["viral_fragments"] = self.multi_search_model(ViralFragment)
         context["analysis_summaries"] = self.multi_search_model(AnalysisSummary)
         context["docs_sections"] = self.get_docs_results()
 

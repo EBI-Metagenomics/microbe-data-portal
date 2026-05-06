@@ -1,14 +1,14 @@
 from typing import Union, List
 
 from django import template
-from microbe.models import Sample, SampleStructuredDatum, Environment
+from microbe.models import Sample, SampleStructuredDatum
 from microbe.utils import microbe_config
 
 register = template.Library()
 
 
 @register.filter(name="environment_metadatum")
-def environment_metadatum(environment: Environment, marker_name: str) -> Union[str, None]:
+def environment_metadatum(environment, marker_name: str) -> Union[str, None]:
     """
     Fetch a metadatum value for an environment.
     :param environment: Environment object
