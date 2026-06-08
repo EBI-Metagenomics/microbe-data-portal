@@ -27,8 +27,8 @@ class SampleAdmin(ModelAdmin):
     inlines = [SampleMetadataInline]
     list_filter = (
         "sample_type",
+        "experiment_type",
         "environment",
-        "use_case",
     )
     search_fields = (
         "accession",

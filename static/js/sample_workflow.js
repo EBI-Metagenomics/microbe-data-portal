@@ -18,12 +18,12 @@
 
     function setScope() {
         const environment = form.elements.namedItem("environment");
-        const useCase = form.elements.namedItem("use_case");
+        const experimentType = form.elements.namedItem("experiment_type");
         if (environment) {
             environment.value = "Soil";
         }
-        if (useCase) {
-            useCase.value = "Cryopreservation";
+        if (experimentType) {
+            experimentType.value = "Cryopreservation";
         }
     }
 

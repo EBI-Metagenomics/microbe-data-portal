@@ -36,11 +36,11 @@ class Sample(models.Model):
     An extraction-level BioSample.
     """
 
-    class UseCase(models.TextChoices):
+    class ExperimentType(models.TextChoices):
         SYNCOMS = "SynComs", "SynComs"
         CRYOPRESERVATION = "Cryopreservation", "Cryopreservation"
 
-    class Environment(models.TextChoices):
+    class UseCase(models.TextChoices):
         SOIL = "Soil", "Soil"
         SEED = "Seed", "Seed"
         MARINE = "Marine", "Marine"
@@ -79,15 +79,15 @@ class Sample(models.Model):
     accession = models.CharField(primary_key=True, max_length=15)
 
     title = models.CharField(max_length=200)
-    use_case = models.CharField(
-        max_length=20, choices=UseCase.choices, null=True, blank=True
+    experiment_type = models.CharField(
+        max_length=20, choices=ExperimentType.choices, null=True, blank=True
     )
     environment = models.CharField(
         max_length=10,
-        choices=Environment.choices,
+        choices=UseCase.choices,
         null=True,
         blank=True,
-        verbose_name="Biome/environment",
+        verbose_name="Use case/biome",
     )
 
     sample_type = models.CharField(

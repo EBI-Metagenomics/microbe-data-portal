@@ -67,8 +67,8 @@ class Command(BaseCommand):
 
         syncom_one = Sample.objects.create(
             accession="SAMEA120442968",
-            use_case=Sample.UseCase.SYNCOMS,
-            environment=Sample.Environment.SEED,
+            experiment_type=Sample.ExperimentType.SYNCOMS,
+            environment=Sample.UseCase.SEED,
             title="S0_BYF_G_0",
             attributes=unnest_attributes(
                 {
@@ -141,5 +141,5 @@ Image credit: Walther Otto Müller, Public domain, via Wikimedia Commons
             author="MICROBE Team",
         )
         summary.samples.add(
-            Sample.objects.filter(use_case=Sample.UseCase.SYNCOMS).first()
+            Sample.objects.filter(experiment_type=Sample.UseCase.SYNCOMS).first()
         )

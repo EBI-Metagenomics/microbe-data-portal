@@ -37,9 +37,9 @@ GENOMES = "Genomes"
 VIRUSES = "Viruses"
 
 
-class UseCaseEnum(Enum):
-    SynComs: str = Sample.UseCase.SYNCOMS
-    Cryopreservation: str = Sample.UseCase.CRYOPRESERVATION
+class ExperimentTypeEnum(Enum):
+    SynComs: str = Sample.ExperimentType.SYNCOMS
+    Cryopreservation: str = Sample.ExperimentType.CRYOPRESERVATION
 
 
 class SampleType(Enum):
@@ -172,11 +172,11 @@ def list_samples(
     accession: str = None,
     title: str = None,
     sample_type: SampleType = None,
-    use_case: UseCaseEnum = None,
+    experment_type: ExperimentTypeEnum = None,
 ):
     q_objects = []
-    if use_case:
-        q_objects.append(Q(use_case=use_case.value))
+    if experment_type:
+        q_objects.append(Q(experment_type=experment_type.value))
     if accession:
         q_objects.append(Q(accession__icontains=accession))
     if title:

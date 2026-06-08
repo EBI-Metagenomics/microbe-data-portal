@@ -32,7 +32,7 @@
     </nav>
     <h1>{{ sample.accession }}: {{ sample.title }}</h1>
     <p class="vf-lede">
-        Sample data for {{ sample.accession }}, a MICROBE sample from the {{ sample.environment }} environment.
+        Sample data for {{ sample.accession }}, a MICROBE sample from the {{ sample.environment }} use case.
     </p>
     <br/>
 
@@ -49,7 +49,7 @@
         </summary>
         <dl class="vf-list vf-list--definition">
             <dt class="vf-list__item vf-list--definition__term">
-                Environment
+                Use case
             </dt>
             <dd class="vf-list__item vf-list--definition__details">
                 {% include "microbe/components/atoms/environment_name.html" with entity=sample link_to_list_url_name="samples_list" only %}
@@ -61,10 +61,10 @@
                 {% include "microbe/components/atoms/sample_type.html" with sample=sample only %}
             </dd>
             <dt class="vf-list__item vf-list--definition__term">
-                Use case
+                Experiment type
             </dt>
             <dd class="vf-list__item vf-list--definition__details">
-                {{ sample.use_case }}
+                {{ sample.experiment_type }}
             </dd>
             <dt class="vf-list__item vf-list--definition__term">
                 API endpoint

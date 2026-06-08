@@ -175,8 +175,8 @@ class SampleDetailView(SignpostedDetailView):
             context["ena_records"] = model.get_ena_records()
 
         if (
-            model.environment == Sample.Environment.SOIL
-            and model.use_case == Sample.UseCase.CRYOPRESERVATION
+            model.environment == Sample.UseCase.SOIL
+            and model.experiment_type == Sample.ExperimentType.CRYOPRESERVATION
         ):
             workflow_parents = list(model.derived_from.all())
             context["workflow"] = build_workflow(

@@ -46,7 +46,7 @@ def test_soil_sample_detail_renders_workflow_and_all_source_samples(client):
             accession=f"SAMEA11540704{index}",
             title=f"HG soil {index}",
             environment=Sample.Environment.SOIL,
-            use_case=Sample.UseCase.CRYOPRESERVATION,
+            experiment_type=Sample.UseCase.CRYOPRESERVATION,
         )
         for index in range(5, 8)
     ]
@@ -54,7 +54,7 @@ def test_soil_sample_detail_renders_workflow_and_all_source_samples(client):
         accession="SAMEA115407051",
         title="HG soil mix",
         environment=Sample.Environment.SOIL,
-        use_case=Sample.UseCase.CRYOPRESERVATION,
+        experiment_type=Sample.UseCase.CRYOPRESERVATION,
         attributes={
             "preservation_method": "freezing",
             "cryoprotectant": "10% DMSO",
@@ -82,7 +82,7 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
         accession="SAMEA121055795",
         title="DSMZ soil workflow sample",
         environment=Sample.Environment.SOIL,
-        use_case=Sample.UseCase.CRYOPRESERVATION,
+        experiment_type=Sample.UseCase.CRYOPRESERVATION,
         attributes={
             "cryoprotectant": "10 % Glycine Betaine + 10% Trehalose",
             "storage_preservation_temperature": "-80",
@@ -93,7 +93,7 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
         accession="SAMEA121055796",
         title="Different soil workflow sample",
         environment=Sample.Environment.SOIL,
-        use_case=Sample.UseCase.CRYOPRESERVATION,
+        experiment_type=Sample.UseCase.CRYOPRESERVATION,
         attributes={
             "cryoprotectant": "none",
             "storage_preservation_temperature": "-80",
@@ -105,7 +105,7 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
         reverse("samples_list"),
         {
             "environment": Sample.Environment.SOIL,
-            "use_case": Sample.UseCase.CRYOPRESERVATION,
+            "experiment_type": Sample.UseCase.CRYOPRESERVATION,
             "workflow_cryoprotectant": "glycine-betaine-trehalose",
             "workflow_storage_temperature": "minus-80",
             "workflow_preservation_duration": "3-months",
@@ -134,13 +134,13 @@ def test_workflow_parent_filter_lists_direct_children(client):
         accession="SAMEA115407051",
         title="HG soil mix",
         environment=Sample.Environment.SOIL,
-        use_case=Sample.UseCase.CRYOPRESERVATION,
+        experiment_type=Sample.UseCase.CRYOPRESERVATION,
     )
     child = Sample.objects.create(
         accession="SAMEA115408603",
         title="MB1",
         environment=Sample.Environment.SOIL,
-        use_case=Sample.UseCase.CRYOPRESERVATION,
+        experiment_type=Sample.UseCase.CRYOPRESERVATION,
     )
     child.derived_from.add(parent)
 

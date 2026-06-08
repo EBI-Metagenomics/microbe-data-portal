@@ -11,7 +11,7 @@ SOIL_WORKFLOW = {
         "Find MICROBE soil samples by the combination of preservation and analysis methods used."
     ),
     "environment": "Soil",
-    "use_case": "Cryopreservation",
+    "experiment_type": "Cryopreservation",
     "stages": [
         {
             "id": "preservation_method",
@@ -262,7 +262,7 @@ def build_workflow(
 
             params = {
                 "environment": workflow["environment"],
-                "use_case": workflow["use_case"],
+                "experiment_type": workflow["experiment_type"],
                 stage["filter_name"]: choice["id"],
             }
             if mode == "list":
@@ -270,7 +270,7 @@ def build_workflow(
                 params.update(
                     {
                         "environment": workflow["environment"],
-                        "use_case": workflow["use_case"],
+                        "experiment_type": workflow["experiment_type"],
                         stage["filter_name"]: choice["id"],
                     }
                 )

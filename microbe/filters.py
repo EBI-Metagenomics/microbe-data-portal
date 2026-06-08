@@ -117,7 +117,7 @@ class SampleFilter(MultiFieldSearchFilter):
         model = Sample
         fields = {
             "environment": ["exact"],
-            "use_case": ["exact"],
+            "experiment_type": ["exact"],
             "sample_type": ["exact"],
             "accession": ["icontains"],
         }

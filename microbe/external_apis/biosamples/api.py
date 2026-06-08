@@ -140,9 +140,9 @@ def add_samples_from_top_level(
     environmental_medium = attributes.get("environmental_medium", "")
     environment = None
     if environmental_medium and "soil" in environmental_medium.lower():
-        environment = Sample.Environment.SOIL
+        environment = Sample.UseCase.SOIL
     if environmental_medium and "seed" in environmental_medium.lower():
-        environment = Sample.Environment.SEED
+        environment = Sample.UseCase.SEED
     # TODO: codes for marine
 
     preservation_method = attributes.get("preservation_method", None)
@@ -159,9 +159,9 @@ def add_samples_from_top_level(
             "attributes": attributes,
             "environment": environment,
             "preservation_method": preservation_method,
-            "use_case": Sample.UseCase.SYNCOMS
+            "experiment_type": Sample.ExperimentType.SYNCOMS
             if attributes.get("sample_type") == "synthetic community"
-            else Sample.UseCase.CRYOPRESERVATION,
+            else Sample.ExperimentType.CRYOPRESERVATION,
         },
     )
 
