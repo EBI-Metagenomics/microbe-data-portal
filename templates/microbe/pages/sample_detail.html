@@ -85,6 +85,54 @@
             </dd>
         </dl>
     </details>
+    {% if sample.is_syncom %}
+        <details class="vf-details" open>
+            <summary class="vf-details--summary">
+                Constituent taxa
+            </summary>
+            <p class="vf-text-body">
+                Taxa included in synthetic community sample {{ sample.accession }}.
+            </p>
+            <div class="scrollable-container">
+                <table class="vf-table">
+                    <thead class="vf-table__header">
+                        <tr class="vf-table__row">
+                            <th class="vf-table__heading" scope="col">Taxon</th>
+                            <th class="vf-table__heading" scope="col">BioSamples accession</th>
+                        </tr>
+                    </thead>
+                    <tbody class="vf-table__body">
+                        {% for constituent in sample.syncom_constituents.all %}
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell">
+                                    {% if constituent.organism_ontology_url %}
+                                        <a class="vf-link"
+                                           href="{{ constituent.organism_ontology_url }}">
+                                            {{ constituent.organism }}
+                                        </a>
+                                    {% else %}
+                                        {{ constituent.organism }}
+                                    {% endif %}
+                                </td>
+                                <td class="vf-table__cell">
+                                    <a class="vf-link"
+                                       href="{{ BIOSAMPLES_URL }}/samples/{{ constituent.accession }}">
+                                        {{ constituent.accession }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell" colspan="2">
+                                    No constituent taxa have been recorded for this sample.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    {% endif %}
     <script>
         function copyApiEndpoint(e) {
             navigator.clipboard.writeText('{{ endpoint }}');

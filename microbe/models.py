@@ -30,6 +30,25 @@ class SynComConstituent(models.Model):
     accession = models.CharField(max_length=256)
     attributes = models.JSONField(null=True, blank=True, default=dict)
 
+    @property
+    def organism_ontology_url(self):
+        organism = (self.attributes or {}).get("organism", {})
+        if not isinstance(organism, dict):
+            return None
+
+        ontology_terms = organism.get("ontologyterms", [])
+        if not isinstance(ontology_terms, list):
+            return None
+
+        return next(
+            (
+                term
+                for term in ontology_terms
+                if isinstance(term, str) and term.startswith(("https://", "http://"))
+            ),
+            None,
+        )
+
 
 class Sample(models.Model):
     """
@@ -124,6 +143,10 @@ class Sample(models.Model):
             self.TRANSCRIPTOMIC,
             self.META_TRANSCRIPTOMIC,
         ]
+
+    @property
+    def is_syncom(self):
+        return self.experiment_type == self.ExperimentType.SYNCOMS
 
     @property
     def is_metagenomic_sample(self):

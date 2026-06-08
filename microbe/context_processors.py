@@ -3,6 +3,7 @@ from microbe.utils import microbe_config
 
 def apis(request):
     return {
+        "BIOSAMPLES_URL": microbe_config.biosamples.api_root,
         "ENA_BROWSER_URL": microbe_config.ena.browser_url,
         "MGNIFY_WEB_URL": microbe_config.mgnify.web_url,
         "MGNIFY_API_URL": microbe_config.mgnify.api_root,
