@@ -19,6 +19,7 @@ from microbe.external_apis.mgnify.api import MgnifyApi
 from microbe.filters import (
     SampleFilter,
     MultiFieldSearchFilter,
+    SampleSynComFilter,
 )
 from microbe.models import (
     Sample,
@@ -97,12 +98,36 @@ class SampleListView(ListFilterView):
     filterset_class = SampleFilter
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["preservation_methods"] = (
+            Sample.objects.exclude(preservation_method__isnull=True)
+            .exclude(preservation_method="")
+            .values_list("preservation_method", flat=True)
+            .order_by("preservation_method")
+            .distinct()
+        )
+        return context
+
+
+class SampleListSynComsView(ListFilterView):
+    model = Sample
+    context_object_name = "samples"
+    paginate_by = 10
+    template_name = "microbe/pages/sample_list_syncoms.html"
+    filterset_class = SampleSynComFilter
+
+    def get_context_data(self, **kwargs):
         """
-        If the animal accession filter resolves to a single animal,
-        set it as "from_animal" so that we can render the list as being
-        a single-animal focus.
+        TODO Maybe do something different if all the list comes from a single constitutent,
+        so this is like a detail view for that constitutent isolate
         """
         context = super().get_context_data(**kwargs)
+        context["host_organisms"] = sorted(
+            Sample.objects.exclude(attributes__host_scientific_name__isnull=True)
+            .exclude(attributes__host_scientific_name="")
+            .values_list("attributes__host_scientific_name", flat=True)
+            .distinct()
+        )
         return context
 
 

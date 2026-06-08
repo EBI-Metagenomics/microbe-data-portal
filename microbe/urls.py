@@ -43,6 +43,7 @@ from microbe.views import (
     AnalysisSummaryListView,
     HomeView,
     GlobalSearchView,
+    SampleListSynComsView,
 )
 
 admin.site.site_header = "MICROBE Data Portal Admin"
@@ -53,6 +54,9 @@ urlpatterns = [
     path("404/", page_not_found, {"exception": Exception()}),
     path("martor/", include("martor.urls")),
     path("samples/", SampleListView.as_view(), name="samples_list"),
+    path(
+        "samples/syncoms/", SampleListSynComsView.as_view(), name="samples_list_syncoms"
+    ),
     path("sample/<str:pk>", SampleDetailView.as_view(), name="sample_detail"),
     path(
         "analysis-summaries/",

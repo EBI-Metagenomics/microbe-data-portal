@@ -1,6 +1,9 @@
-from typing import Union, List
+from typing import Union, List, Mapping
 
 from django import template
+from django.utils.html import format_html
+from django.utils.safestring import SafeString
+
 from microbe.models import Sample, SampleStructuredDatum
 from microbe.utils import microbe_config
 
@@ -88,3 +91,26 @@ def format_significant_digits_if_number(value, sig_digits: int = 5) -> str:
         return f"{float(value):.{sig_digits}g}"
     except ValueError:
         return value
+
+
+@register.simple_tag
+def pprint_metadatum(value) -> str | SafeString:
+    if type(value) is str:
+        return value
+    if not isinstance(value, Mapping):
+        return str(value)
+    print(value)
+    units = value.get("unit", "")
+    label = f"{value.get('text', 'Unknown')}"
+    if units:
+        label += f" ({units})"
+    if "ontologyterms" in value:
+        first_term = (
+            value["ontologyterms"][0]
+            if type(value["ontologyterms"]) is list
+            else value["ontologyterms"]
+        )
+        return format_html(
+            '<a class="vf-link" href="{}" target="_blank">{}</a>', first_term, label
+        )
+    return label

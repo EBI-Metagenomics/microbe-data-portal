@@ -1,0 +1,19 @@
+{% load static %}
+
+<div style="display:flex">
+    {% if entity.environment.lower == 'seed' %}
+       <img src="{% static "img/icons/seed.svg" %}"
+         class="system-icon"
+         alt="Seed"/>
+    {% elif entity.environment.lower == 'marine' %}
+        <img src="{% static "img/icons/marine.svg" %}"
+         class="system-icon"
+         alt="Marine"/>
+    {% elif entity.environment.lower == 'soil' %}
+        <img src="{% static "img/icons/soil.svg" %}"
+         class="system-icon"
+         alt="Soil"/>
+    {% endif %}
+    <a href="{% url link_to_list_url_name %}?environment={{ entity.environment }}"
+       class="vf-link">{{ entity.environment }}</a>
+</div>

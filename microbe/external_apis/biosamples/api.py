@@ -4,7 +4,7 @@ from typing import List
 
 import requests
 
-from microbe.utils import microbe_config
+from microbe.utils import microbe_config, unnest_attributes
 
 API_ROOT = microbe_config.biosamples.api_root.rstrip("/")
 
@@ -124,3 +124,73 @@ def get_project_samples(
         for sample in samples:
             if sample.get("webinSubmissionAccountId") in webin_filter:
                 yield sample
+
+
+def add_samples_from_top_level(
+    biosample_accession: str, max_derivations_per_level: int = 1e6
+):
+    from microbe.models import Sample
+
+    json_data = get_biosample(biosample_accession)
+    if not json_data:
+        logging.error(f"Could not fetch BioSample {biosample_accession}")
+        return
+
+    attributes = unnest_attributes(json_data.get("characteristics", {}))
+    environmental_medium = attributes.get("environmental_medium", "")
+    environment = None
+    if environmental_medium and "soil" in environmental_medium.lower():
+        environment = Sample.Environment.SOIL
+    if environmental_medium and "seed" in environmental_medium.lower():
+        environment = Sample.Environment.SEED
+    # TODO: codes for marine
+
+    preservation_method = attributes.get("preservation_method", None)
+    # TODO generalise
+    if type(preservation_method) is dict:
+        preservation_method = preservation_method.get("text", "")
+    if type(preservation_method) is list and len(preservation_method) > 0:
+        preservation_method = preservation_method[0].get("text", "")
+
+    sample, created = Sample.objects.update_or_create(
+        accession=json_data.get("accession"),
+        defaults={
+            "title": json_data.get("name"),
+            "attributes": attributes,
+            "environment": environment,
+            "preservation_method": preservation_method,
+            "use_case": Sample.UseCase.SYNCOMS
+            if attributes.get("sample_type") == "synthetic community"
+            else Sample.UseCase.CRYOPRESERVATION,
+        },
+    )
+
+    if created:
+        logging.info(f"Created Sample {sample.accession}")
+    else:
+        logging.info(f"Updated Sample {sample.accession}")
+
+    # Import Biolog structured data if present
+    structured_data = json_data.get("structuredData", [])
+    for entry in structured_data:
+        if entry.get("type") == "Biolog":
+            sample.import_biologs(entry)
+
+    # Process samples that are derived from this one
+    # The JSON's relationships list contains entries where this sample is the 'target'
+    # and the derived sample is the 'source'.
+    relationships = json_data.get("relationships", [])
+    for r, rel in enumerate(relationships):
+        if r > max_derivations_per_level:
+            break
+        if (
+            rel.get("target") == biosample_accession
+            and rel.get("type") == "derived_from"
+        ):
+            child_accession = rel.get("source")
+            # Recursive call to process the child
+            child_sample = add_samples_from_top_level(child_accession)
+            if child_sample:
+                child_sample.derived_from.add(sample)
+
+    return sample

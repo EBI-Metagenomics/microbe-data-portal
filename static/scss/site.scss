@@ -105,10 +105,15 @@ table.full-width {
 	flex-grow: 1;
 }
 
+.vf-navigation--global {
+	margin-left: 0 !important;
+}
+
 img.nav-icon {
-    height: 0.8em;
-    width: 0.8em;
+    height: 1em;
+    width: 1em;
 	padding-right: 0.2em;
+	padding-top: 0.2em;
 }
 
 li.vf-navigation__item.nav-item-cluster {
@@ -148,7 +153,7 @@ li.nav-item-cluster {
   }
 
 	&:not(.nav-item-cluster__primary) {
-		background-color: var(--vf-color--neutral--100);
+		background-color: var(--vf-color--neutral--200);
 	}
 }
 

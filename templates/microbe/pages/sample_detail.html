@@ -22,17 +22,21 @@
       <span class="vf-breadcrumbs__heading">Related:</span>
 
       <ul class="vf-breadcrumbs__list vf-breadcrumbs__list--related | vf-list vf-list--inline">
-        <li class="vf-breadcrumbs__item">
-          <a href="{% url 'use_case_detail' pk=sample.environment.use_case.name %}" class="vf-breadcrumbs__link">{{ sample.environment.use_case.name }}</a>
-        </li>
+          {% for ancestor in sample.derivation_hierarchy %}
+            <li class="vf-breadcrumbs__item">
+                <a href="{% url 'sample_detail' pk=ancestor.pk %}" class="vf-breadcrumbs__link">{{ ancestor.accession }} ({{ ancestor.title }})</a>
+            </li>
+          {% endfor %}
       </ul>
 
     </nav>
     <h1>{{ sample.accession }}: {{ sample.title }}</h1>
     <p class="vf-lede">
-        Sample data for {{ sample.accession }}, a MICROBE {{ sample.sample_type|replace:"_>-" }} sample from {{ sample.environment.name }} environment ({{ sample.environment.use_case.name }}).
+        Sample data for {{ sample.accession }}, a MICROBE sample from the {{ sample.environment }} environment.
     </p>
     <br/>
+
+    <img src="{% static "img/workflow-soil.jpg" %}" width="100%" alt="Sample workflow"/>
 
     <details class="vf-details" open>
         <summary class="vf-details--summary">
@@ -40,22 +44,22 @@
         </summary>
         <dl class="vf-list vf-list--definition">
             <dt class="vf-list__item vf-list--definition__term">
-                Use case
-            </dt>
-            <dd class="vf-list__item vf-list--definition__details">
-                <a class="vf-link" href="{% url 'use_case_detail' pk=sample.environment.use_case.name %}">{{ sample.environment.use_case.name }}</a>
-            </dd>
-            <dt class="vf-list__item vf-list--definition__term">
                 Environment
             </dt>
             <dd class="vf-list__item vf-list--definition__details">
-                {{ sample.environment.name }}
+                {% include "microbe/components/atoms/environment_name.html" with entity=sample link_to_list_url_name="samples_list" only %}
             </dd>
             <dt class="vf-list__item vf-list--definition__term">
                 Sample type
             </dt>
             <dd class="vf-list__item vf-list--definition__details">
                 {% include "microbe/components/atoms/sample_type.html" with sample=sample only %}
+            </dd>
+            <dt class="vf-list__item vf-list--definition__term">
+                Use case
+            </dt>
+            <dd class="vf-list__item vf-list--definition__details">
+                {{ sample.use_case }}
             </dd>
             <dt class="vf-list__item vf-list--definition__term">
                 API endpoint
@@ -84,14 +88,10 @@
     </script>
     <details class="vf-details">
         <summary class="vf-details--summary">
-            {% if sample.is_sequencing_sample or sample.sample_type == 'metabolomic' %}
-                Sample metadata
-            {% else %}
-                Sample data
-            {% endif %}
+            Sample metadata
         </summary>
         <a id="metadata"></a>
-        <p class="vf-text-body">Metadata for sample {{ sample.accession }}, stored in BioSamples and ENA.</p>
+        <p class="vf-text-body">Metadata for sample {{ sample.accession }}, stored in <a href="https://www.ebi.ac.uk/biosamples/samples/{{ sample.accession }}" target="_blank">BioSamples</a> and ENA.</p>
         <a class="vf-button vf-button--link vf-button--sm"
            href="{% url 'export:sample_metadata_list' sample_accession=sample.accession %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
 
@@ -192,7 +192,67 @@
                 </section>
             {% endfor %}
         </div>
+        <h2>BioSamples attributes</h2>
+        <table class="vf-table scrollable-table">
+            <thead class="vf-table__header">
+                <tr class="vf-table__row">
+                    <th class="vf-table__heading" scope="col">Key</th>
+                    <th class="vf-table__heading" scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody class="vf-table__body">
+                {% for key,val in sample.attributes.items %}
+                    <tr class="vf-table__row">
+                        <td class="vf-table__cell">{{ key }}</td>
+                        <td class="vf-table__cell">{% pprint_metadatum val %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </details>
+    {% if sample.biologs %}
+        <details class="vf-details" open>
+            <summary class="vf-details--summary">
+                Biolog data
+            </summary>
+            <a id="biolog"></a>
+            <p>
+                Sample {{ sample.accession }} has Biolog experimental data.
+            </p>
+            <table class="vf-table scrollable-table">
+                <thead class="vf-table__header">
+                    <tr class="vf-table__row">
+                        <th class="vf-table__heading" scope="col">Sample name</th>
+                        <th class="vf-table__heading" scope="col">File name</th>
+                        <th class="vf-table__heading" scope="col">Plate type</th>
+                        <th class="vf-table__heading" scope="col">Link to file</th>
+                    </tr>
+                </thead>
+                <tbody class="vf-table__body">
+                    {% for biolog_entry in sample.biologs %}
+                        {% for content in biolog_entry.content %}
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell">
+                                    {{ content|get_item:"sample name"|get_item:"value" }}
+                                </td>
+                                <td class="vf-table__cell">
+                                    {{ content|get_item:"file name"|get_item:"value" }}
+                                </td>
+                                <td class="vf-table__cell">
+                                    {{ content|get_item:"plate type"|get_item:"value" }}
+                                </td>
+                                <td class="vf-table__cell">
+                                    <a href="{{ content|get_item:"link to file"|get_item:"value" }}" class="vf-link">
+                                        {{ content|get_item:"link to file"|get_item:"value" }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </details>
+    {% endif %}
     {% if sample.is_metagenomic_sample %}
         <details class="vf-details">
             <summary class="vf-details--summary">
@@ -221,7 +281,7 @@
                             <div class="vf-card__content | vf-stack vf-stack--400">
                                 <div class="vf-flag vf-flag--middle vf-flag--400">
                                     <div class="vf-flag__media">
-                                        <img src="{% static 'img/icons/empty-egg.svg' %}"
+                                        <img src="{% static 'img/icons/empty-bowl.svg' %}"
                                              height="36px"
                                              width="36px"
                                              alt="Empty set icon"/>
@@ -320,7 +380,7 @@
             {% include "microbe/components/atoms/possibly_empty_state.html" with items=assays empty_text="No assays found in MetaboLights" colspan=3 %}
         </details>
     {% endif %}
-    {% if sample.is_sequencing_sample %}
+    {% if 1 %}
         <details class="vf-details">
             <summary class="vf-details--summary">
                 Nucleotide sequencing data
@@ -391,7 +451,7 @@
                     </tr>
                 </tbody>
             </table>
-            {% if not ena_records %}
+            {% if 0 %}
                 {% include "microbe/components/atoms/possibly_empty_state.html" with empty_text="No assays found in MetaboLights" colspan=3 %}
             {% endif %}
         </details>

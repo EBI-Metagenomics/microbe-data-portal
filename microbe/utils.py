@@ -2,10 +2,11 @@ import logging
 import time
 from datetime import timedelta
 from functools import reduce
-from typing import Any
+from typing import Any, Mapping
 
 from django.conf import settings
 from django.db.models import Aggregate, Func
+from django.utils.text import slugify
 
 from microbe.config import MicrobeConfig
 
@@ -22,9 +23,39 @@ def clean_keys(data: Any) -> Any:
         return list(map(clean_keys, data))
     elif isinstance(data, dict):
         return {
-            k.replace(" ", "_").replace("-", "_"): clean_keys(v)
+            (k or "").replace(" ", "_").replace("-", "_"): clean_keys(v)
             for k, v in data.items()
         }
+    return data
+
+
+def unnest_attributes(
+    data: Any,
+    collapse_text_only: bool = False,
+) -> Any:
+    if isinstance(data, Mapping):
+        d = {
+            slugify(str(key)): unnest_attributes(
+                value,
+                collapse_text_only=collapse_text_only,
+            )
+            for key, value in data.items()
+        }
+        return clean_keys(d)
+
+    if isinstance(data, list):
+        if len(data) == 1 and isinstance(data[0], Mapping) and "text" in data[0]:
+            if collapse_text_only or set(data[0]) == {"text"}:
+                return data[0]["text"]
+            elif len(data) == 1:
+                return unnest_attributes(data[0], collapse_text_only=collapse_text_only)
+        return [
+            unnest_attributes(
+                item,
+                collapse_text_only=collapse_text_only,
+            )
+            for item in data
+        ]
     return data
 
 

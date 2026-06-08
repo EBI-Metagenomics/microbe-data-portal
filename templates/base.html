@@ -21,7 +21,9 @@
             <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap"
                   rel="stylesheet"/>
             <link rel="stylesheet"
-                  href="https://assets.emblstatic.net/vf/v2.5.7/css/styles.css"/>
+                  href="https://assets.emblstatic.net/vf/v2.5.26/css/styles.css"/>
+            <link rel="stylesheet"
+                  href="https://stable.visual-framework.dev/assets/vf-mega-menu/vf-mega-menu.css"/>
             <link rel="icon"
                   type="image/png"
                   href="{% static 'img/icons/microbe-logo-brand.png' %}"/>
@@ -106,52 +108,158 @@
         </div>
     </section>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <nav class="vf-navigation vf-navigation--main | vf-cluster">
-        <ul class="vf-navigation__list | vf-list | vf-cluster__inner">
-            <li class="vf-navigation__item">
-                <a href="{% url 'home' %}"
-                   class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/microbe-logo-brand.png' %}" alt="">
-                    Home</a>
-            </li>
-            <li class="vf-navigation__item">
-                <a href="{% url 'samples_list' %}?use_case=SynComs" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
-                    SynCom Samples</a>
-            </li>
-            <li class="vf-navigation__item nav-item-cluster nav-item-cluster__primary">
-                <a href="{% url 'samples_list' %}"
-                   class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
-                    Environmental Samples</a>
-            </li>
-            <li class="vf-navigation__item nav-item-cluster">
-                <a href="{% url 'samples_list' %}?environment=Soil" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/soil.svg' %}" alt="">
-                    Soil</a>
-            </li>
-            <li class="vf-navigation__item nav-item-cluster">
-                <a href="{% url 'samples_list' %}?environment=Seed" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/seed.svg' %}" alt="">
-                    Seed</a>
-            </li>
-            <li class="vf-navigation__item nav-item-cluster">
-                <a href="{% url 'samples_list' %}?environment=Marine" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/marine.svg' %}" alt="">
-                    Marine</a>
-            </li>
-            <li class="vf-navigation__item">
-                <a href="{% url 'analysis_summary_list' %}" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/book.svg' %}" alt="">
-                    Analysis summaries</a>
-            </li>
-            <li class="vf-navigation__item">
-                <a href="{% url 'api:openapi-view' %}" class="vf-navigation__link">
-                    <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/code.svg' %}" alt="">
-                    API</a>
-            </li>
-        </ul>
-    </nav>
+    <header class="vf-global-header vf-mega-menu" data-vf-js-mega-menu role="menubar">
+        <nav class="vf-navigation vf-navigation--global | vf-cluster">
+            <ul class="vf-navigation__list | vf-list | vf-cluster__inner">
+                <li class="vf-navigation__item">
+                    <a href="{% url 'home' %}"
+                       class="vf-navigation__link">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/microbe-logo-brand.png' %}" alt="">
+                        Home</a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a class="vf-navigation__link vf-mega-menu__link vf-mega-menu__link--has-section" data-vf-js-mega-menu-section-id="human-samples-section" href="{% url 'samples_list' %}?environment=Human">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/human.svg' %}" alt="">
+                        Human
+                    </a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a class="vf-navigation__link vf-mega-menu__link vf-mega-menu__link--has-section" data-vf-js-mega-menu-section-id="soil-samples-section" href="{% url 'samples_list' %}?environment=Soil">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/soil.svg' %}" alt="">
+                        Soil
+                    </a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a class="vf-navigation__link vf-mega-menu__link vf-mega-menu__link--has-section" data-vf-js-mega-menu-section-id="seed-samples-section" href="{% url 'samples_list' %}?environment=Seed">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/seed.svg' %}" alt="">
+                        Seed
+                    </a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a class="vf-navigation__link vf-mega-menu__link vf-mega-menu__link--has-section" data-vf-js-mega-menu-section-id="marine-samples-section" href="{% url 'samples_list' %}?environment=Marine">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/marine.svg' %}" alt="">
+                        Marine
+                    </a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a href="{% url 'analysis_summary_list' %}" class="vf-navigation__link">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/book.svg' %}" alt="">
+                        Analysis summaries</a>
+                </li>
+                <li class="vf-navigation__item">
+                    <a href="{% url 'api:openapi-view' %}" class="vf-navigation__link">
+                        <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/code.svg' %}" alt="">
+                        API</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="vf-mega-menu__content">
+        <div class="vf-mega-menu__content__section" data-vf-js-mega-menu-section="human-samples-section" role="menu" aria-hidden="true">
+            <section class="vf-summary-container | embl-grid">
+              <div class="vf-section-header">
+                <h2 class="vf-section-header__heading">Human samples</h2>
+                <p class="vf-section-header__text">Synthetic communities and host-associated samples from human samples</p>
+              </div>
+              <div class="vf-section-content | vf-grid vf-grid__col-3">
+                <div>
+                  <nav class="vf-navigation vf-navigation--main">
+                    <ul class="vf-navigation__list | vf-list | vf-cluster__inner | vf-stack vf-stack--200">
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list_syncoms' %}?environment=Human" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
+                            SynCom Samples</a>
+                      </li>
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list' %}?environment=Human" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
+                            Extraction Samples</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </section>
+        </div>
+        <div class="vf-mega-menu__content__section" data-vf-js-mega-menu-section="soil-samples-section" role="menu" aria-hidden="true">
+            <section class="vf-summary-container | embl-grid">
+              <div class="vf-section-header">
+                <h2 class="vf-section-header__heading">Soil samples</h2>
+                <p class="vf-section-header__text">Synthetic communities and environmental samples from soil</p>
+              </div>
+              <div class="vf-section-content | vf-grid vf-grid__col-3">
+                <div>
+                  <nav class="vf-navigation vf-navigation--main">
+                    <ul class="vf-navigation__list | vf-list | vf-cluster__inner | vf-stack vf-stack--200">
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list_syncoms' %}?environment=Soil" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
+                            SynCom Samples</a>
+                      </li>
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list' %}?environment=Soil" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
+                            Environmental Samples</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </section>
+        </div>
+        <div class="vf-mega-menu__content__section" data-vf-js-mega-menu-section="seed-samples-section" role="menu" aria-hidden="true">
+            <section class="vf-summary-container | embl-grid">
+              <div class="vf-section-header">
+                <h2 class="vf-section-header__heading">Seed samples</h2>
+                <p class="vf-section-header__text">Synthetic communities and host-associated samples from seed samples</p>
+              </div>
+              <div class="vf-section-content | vf-grid vf-grid__col-3">
+                <div>
+                  <nav class="vf-navigation vf-navigation--main">
+                    <ul class="vf-navigation__list | vf-list | vf-cluster__inner | vf-stack vf-stack--200">
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list_syncoms' %}?environment=Seed" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
+                            SynCom Samples</a>
+                      </li>
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list' %}?environment=Seed" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
+                            Extraction Samples</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </section>
+        </div>
+        <div class="vf-mega-menu__content__section" data-vf-js-mega-menu-section="marine-samples-section" role="menu" aria-hidden="true">
+            <section class="vf-summary-container | embl-grid">
+              <div class="vf-section-header">
+                <h2 class="vf-section-header__heading">Marine samples</h2>
+                <p class="vf-section-header__text">Synthetic communities and environmental samples from marine samples</p>
+              </div>
+              <div class="vf-section-content | vf-grid vf-grid__col-3">
+                <div>
+                  <nav class="vf-navigation vf-navigation--main">
+                    <ul class="vf-navigation__list | vf-list | vf-cluster__inner | vf-stack vf-stack--200">
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list_syncoms' %}?environment=Marine" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/syncom.svg' %}" alt="">
+                            SynCom Samples</a>
+                      </li>
+                      <li class="vf-navigation__item">
+                        <a href="{% url 'samples_list' %}?environment=Marine" class="vf-navigation__link">
+                            <img class="vf-icon vf-icon--24 nav-icon" src="{% static 'img/icons/environmental.svg' %}" alt="">
+                            Environmental Samples</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </section>
+        </div>
+    </div>
     {% block content %}
     {% endblock content %}
     <div class="full-width">
@@ -256,7 +364,7 @@
             </div>
         </footer>
     </div>
-    <script src="https://assets.emblstatic.net/vf/v2.5.7/scripts/scripts.js"></script>
+    <script src="https://assets.emblstatic.net/vf/v2.5.26/scripts/scripts.js"></script>
     {% include "microbe/scripts/scrollable_container.html" %}
 </body>
 </html>

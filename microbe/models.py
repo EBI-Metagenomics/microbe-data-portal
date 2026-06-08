@@ -25,6 +25,12 @@ class SampleManager(models.Manager):
         return super().get_queryset()
 
 
+class SynComConstituent(models.Model):
+    organism = models.CharField(max_length=256)
+    accession = models.CharField(max_length=256)
+    attributes = models.JSONField(null=True, blank=True, default=dict)
+
+
 class Sample(models.Model):
     """
     An extraction-level BioSample.
@@ -38,6 +44,7 @@ class Sample(models.Model):
         SOIL = "Soil", "Soil"
         SEED = "Seed", "Seed"
         MARINE = "Marine", "Marine"
+        HUMAN = "Human", "Human"
 
     METAGENOMIC_ASSEMBLY = "metagenomic_assembly"
     METAGENOMIC_AMPLICON = "metagenomic_amplicon"
@@ -76,7 +83,11 @@ class Sample(models.Model):
         max_length=20, choices=UseCase.choices, null=True, blank=True
     )
     environment = models.CharField(
-        max_length=10, choices=Environment.choices, null=True, blank=True
+        max_length=10,
+        choices=Environment.choices,
+        null=True,
+        blank=True,
+        verbose_name="Biome/environment",
     )
 
     sample_type = models.CharField(
@@ -84,6 +95,19 @@ class Sample(models.Model):
     )
 
     metabolights_study = models.CharField(max_length=15, null=True, blank=True)
+    biologs = models.JSONField(null=True, blank=True, default=list)
+
+    attributes = models.JSONField(null=True, blank=True, default=dict)
+    syncom_constituents = models.ManyToManyField(
+        SynComConstituent, related_name="syncoms"
+    )
+    derived_from = models.ManyToManyField(
+        "self",
+        related_name="derived_samples",
+        symmetrical=False,
+    )
+
+    preservation_method = models.CharField(max_length=256, null=True, blank=True)
 
     def __str__(self):
         return f"Sample {self.accession} - {self.title}"
@@ -108,6 +132,26 @@ class Sample(models.Model):
             self.METAGENOMIC_AMPLICON,
             self.META_TRANSCRIPTOMIC,
         ]
+
+    @property
+    def derivation_hierarchy(self) -> List[Sample]:
+        """
+        Returns a list of samples in the hierarchy of derivation,
+        from the most distant ancestor to the current sample.
+        """
+        hierarchy = []
+        current = self
+        seen = {self.accession}
+        while True:
+            # We assume a linear derivation here as per requirement description
+            parent = current.derived_from.first()
+            if parent and parent.accession not in seen:
+                hierarchy.insert(0, parent)
+                seen.add(parent.accession)
+                current = parent
+            else:
+                break
+        return hierarchy
 
     def refresh_structureddata(
         self, structured_metadata: dict = None, checklist: list = None
@@ -199,6 +243,27 @@ class Sample(models.Model):
 
     def get_ena_records(self):
         return get_filereport(self.accession)
+
+    def import_biologs(self, structured_data: dict):
+        """
+        Validates and saves Biolog structured data.
+        """
+        from microbe.structured_data_schemas import BiologStructuredData
+
+        try:
+            validated_data = BiologStructuredData(**structured_data)
+            if self.biologs is None:
+                self.biologs = []
+            # Check if this exact entry is already present to avoid duplicates
+            if structured_data not in self.biologs:
+                self.biologs.append(structured_data)
+                self.save()
+            return True
+        except Exception as e:
+            logging.error(
+                f"Failed to validate Biolog data for sample {self.accession}: {e}"
+            )
+            return False
 
 
 class SampleMetadataMarker(models.Model):
