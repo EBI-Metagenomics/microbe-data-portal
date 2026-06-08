@@ -5,7 +5,7 @@ from typing import List, Type
 
 import requests
 from django.core.paginator import Paginator
-from django.db.models import Q, Model, CharField, QuerySet, TextField
+from django.db.models import Q, Model, CharField, Count, QuerySet, TextField
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
@@ -121,10 +121,18 @@ class SampleListView(ListFilterView):
 
 class SampleListSynComsView(ListFilterView):
     model = Sample
+    queryset = Sample.objects.annotate(
+        constituents_count=Count("syncom_constituents", distinct=True)
+    )
     context_object_name = "samples"
     paginate_by = 10
     template_name = "microbe/pages/sample_list_syncoms.html"
     filterset_class = SampleSynComFilter
+
+    def get_queryset(self):
+        return (
+            super().get_queryset().filter(experiment_type=Sample.ExperimentType.SYNCOMS)
+        )
 
     def get_context_data(self, **kwargs):
         """

@@ -72,6 +72,9 @@ def test_soil_sample_detail_renders_workflow_and_all_source_samples(client):
     assert '<details class="vf-details sample-workflow-details" open>' in content
     assert 'data-workflow-mode="detail"' in content
     assert 'class="sample-workflow__choice is-current"' in content
+    assert 'class="sample-workflow__relationship-label"' in content
+    assert 'class="sample-workflow__source-junction"' in content
+    assert 'd="M 16 178 V 204 H 32"' in content
     for parent in parents:
         assert parent.accession in content
 

@@ -124,6 +124,11 @@ class SampleFilter(MultiFieldSearchFilter):
 
 
 class SampleSynComFilter(MultiFieldSearchFilter):
+    ordering = django_filters.OrderingFilter(
+        fields=(("constituents_count", "constituents_count"),),
+        field_labels={"constituents_count": "Constituents"},
+    )
+
     host_organism = django_filters.CharFilter(
         field_name="attributes__host_scientific_name",
         lookup_expr="icontains",

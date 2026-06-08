@@ -554,10 +554,22 @@ img.hf-hero-logo {
 .sample-workflow__source-connection {
 	fill: none;
 	stroke: #734c99;
-	stroke-width: 1.5;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
 }
 
-.sample-workflow__relationship-label {
+.sample-workflow__source-junction {
+	fill: #734c99;
+}
+
+.sample-workflow__relationship-label rect {
+	fill: white;
+	stroke: #c5addb;
+	stroke-width: 1;
+}
+
+.sample-workflow__relationship-label text {
 	fill: #54585a;
 	font-size: 12px;
 	font-weight: 600;

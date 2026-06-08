@@ -42,27 +42,35 @@
                         </text>
                     </g>
                     {% if workflow.source_nodes %}
-                        <text class="sample-workflow__relationship-label"
-                              x="91"
-                              y="153"
-                              text-anchor="middle">derived from</text>
+                        <path class="sample-workflow__source-connection"
+                              d="M 91 124 V 135 M 91 159 V 162 Q 91 170 83 170 H 24 Q 16 170 16 178"></path>
+                        <g class="sample-workflow__relationship-label">
+                            <rect x="48" y="136" width="86" height="23" rx="11.5"></rect>
+                            <text x="91"
+                                  y="152"
+                                  text-anchor="middle">derived from</text>
+                        </g>
                     {% endif %}
                     {% for source_node in workflow.source_nodes %}
                         <path class="sample-workflow__source-connection"
-                              d="M 91 124 V {{ source_node.y|add:'-7' }}"></path>
+                              d="M 16 178 V {{ source_node.y|add:'24' }} H 32"></path>
+                        <circle class="sample-workflow__source-junction"
+                                cx="16"
+                                cy="{{ source_node.y|add:'24' }}"
+                                r="2.5"></circle>
                         <a href="{% url 'sample_detail' pk=source_node.accession %}"
                            class="sample-workflow__choice is-related">
                             <title>Source sample: {{ source_node.accession }} {{ source_node.title }}</title>
-                            <rect x="10"
+                            <rect x="32"
                                   y="{{ source_node.y }}"
-                                  width="162"
+                                  width="140"
                                   height="48"
                                   rx="5"></rect>
-                            <text x="91"
+                            <text x="102"
                                   y="{{ source_node.y|add:'19' }}"
                                   text-anchor="middle">
-                                <tspan x="91">{{ source_node.accession }}</tspan>
-                                <tspan x="91" dy="15">Source sample</tspan>
+                                <tspan x="102">{{ source_node.accession }}</tspan>
+                                <tspan x="102" dy="15">Source sample</tspan>
                             </text>
                         </a>
                     {% empty %}
