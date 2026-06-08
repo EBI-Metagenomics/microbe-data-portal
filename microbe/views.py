@@ -26,6 +26,7 @@ from microbe.models import (
     AnalysisSummary,
 )
 from microbe.utils import microbe_config, find_by_path, write_signpost
+from microbe.workflows import build_workflow
 
 
 class ListFilterView(ListView):
@@ -99,6 +100,15 @@ class SampleListView(ListFilterView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["workflow"] = build_workflow(
+            query_params=self.request.GET,
+            list_url=reverse("samples_list"),
+            mode="list",
+        )
+        context["workflow"]["has_selected_filters"] = any(
+            key.startswith("workflow_") and value
+            for key, value in self.request.GET.items()
+        )
         context["preservation_methods"] = (
             Sample.objects.exclude(preservation_method__isnull=True)
             .exclude(preservation_method="")
@@ -163,6 +173,31 @@ class SampleDetailView(SignpostedDetailView):
 
         if model.is_sequencing_sample:
             context["ena_records"] = model.get_ena_records()
+
+        if (
+            model.environment == Sample.Environment.SOIL
+            and model.use_case == Sample.UseCase.CRYOPRESERVATION
+        ):
+            workflow_parents = list(model.derived_from.all())
+            context["workflow"] = build_workflow(
+                attributes=model.attributes,
+                list_url=reverse("samples_list"),
+                mode="detail",
+            )
+            context["workflow"]["current_sample"] = {
+                "accession": model.accession,
+                "title": model.title,
+            }
+            context["workflow"]["source_nodes"] = [
+                {
+                    "accession": parent.accession,
+                    "title": parent.title,
+                    "y": 180 + (index * 58),
+                }
+                for index, parent in enumerate(workflow_parents[:7])
+            ]
+            context["workflow_parents"] = workflow_parents
+            context["workflow_children"] = model.derived_samples.all()
 
         return context
 

@@ -19,11 +19,24 @@
         </li>
       </ul>
     </nav>
+    <button class="vf-button vf-button--secondary"
+            type="button"
+            id="show-workflow-filters">Show workflow filters</button>
+    <dialog class="sample-workflow-dialog" id="workflow-filter-dialog">
+        <div class="sample-workflow-dialog__header">
+            <h2>Workflow filters</h2>
+            <button class="vf-button vf-button--link vf-button--sm"
+                    type="button"
+                    id="close-workflow-filters"
+                    aria-label="Close workflow filters">Close</button>
+        </div>
+        {% include "microbe/components/sample_workflow.html" %}
+    </dialog>
     <div class="vf-sidebar vf-sidebar--start vf-sidebar--800">
         <div class="vf-sidebar__inner">
             <div>
                 <h2>Filter samples</h2>
-                {% include "microbe/components/form.html" with form=filterset.form method="get" submit="Apply" id="sample_filters" only %}
+                {% include "microbe/components/form.html" with form=filterset.form method="get" submit="Apply" id="sample_filters" show_workflow_filters=True workflow_filters_active=workflow.has_selected_filters only %}
                 <datalist id="preservation-method-options">
                     {% for preseration_method in preservation_methods %}
                         <option value="{{ preseration_method }}"></option>

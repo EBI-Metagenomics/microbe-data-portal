@@ -36,7 +36,12 @@
     </p>
     <br/>
 
-    <img src="{% static "img/workflow-soil.jpg" %}" width="100%" alt="Sample workflow"/>
+    {% if workflow %}
+        <details class="vf-details sample-workflow-details" open>
+            <summary class="vf-details--summary">Soil cryopreservation workflow</summary>
+            {% include "microbe/components/sample_workflow.html" %}
+        </details>
+    {% endif %}
 
     <details class="vf-details" open>
         <summary class="vf-details--summary">
