@@ -8,7 +8,7 @@
           <a href="{% url 'home' %}" class="vf-breadcrumbs__link">Home</a>
         </li>
         <li class="vf-breadcrumbs__item" aria-current="location">
-          Synthetic Community Samples
+            {% include "microbe/components/atoms/syncom_def.html" %} Samples
         </li>
       </ul>
     </nav>
@@ -26,7 +26,7 @@
             </div>
             <div>
                 <h2>Samples</h2>
-                <p class="vf-text-body vf-text-body--5">Samples listed are synthetic community BioSamples, associated with environments across the MICROBE project.</p>
+                <p class="vf-text-body vf-text-body--5">Samples listed are {% include "microbe/components/atoms/syncom_def.html" %} BioSamples, associated with use cases across the MICROBE project.</p>
                 <a class="vf-button vf-button--link vf-button--sm"
                    href="{% url 'export:samples_list' %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
                 <div class="scrollable-container">

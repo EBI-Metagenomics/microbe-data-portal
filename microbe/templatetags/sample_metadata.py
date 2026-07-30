@@ -99,7 +99,6 @@ def pprint_metadatum(value) -> str | SafeString:
         return value
     if not isinstance(value, Mapping):
         return str(value)
-    print(value)
     units = value.get("unit", "")
     label = f"{value.get('text', 'Unknown')}"
     if units:
@@ -111,6 +110,8 @@ def pprint_metadatum(value) -> str | SafeString:
             else value["ontologyterms"]
         )
         return format_html(
-            '<a class="vf-link" href="{}" target="_blank">{}</a>', first_term, label
+            '<a class="vf-link" href="{}" target="_blank" rel="noopener noreferrer">{}</a>',
+            first_term,
+            label,
         )
     return label

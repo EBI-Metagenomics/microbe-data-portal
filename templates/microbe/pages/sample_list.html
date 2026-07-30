@@ -69,7 +69,7 @@
                                         {% include "microbe/components/atoms/environment_name.html" with entity=sample link_to_list_url_name="samples_list" only %}
                                     </td>
                                     <td class="vf-table__cell">
-                                        {{ sample.attributes.preservation_method }}
+                                        {% pprint_metadatum sample.attributes.preservation_method %}
                                     </td>
                                     <td class="vf-table__cell">
                                         <a class="vf-button vf-button--link vf-button--sm"

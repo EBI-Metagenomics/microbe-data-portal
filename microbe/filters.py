@@ -107,10 +107,14 @@ class SampleFilter(MultiFieldSearchFilter):
             if choice.get("match", "exact").startswith("contains")
             else "iexact"
         )
-        filters = [
-            Q(**{f"attributes__{attribute}__{lookup}": raw_value})
-            for raw_value in choice["values"]
-        ]
+        filters = []
+        for raw_value in choice["values"]:
+            filters.extend(
+                [
+                    Q(**{f"attributes__{attribute}__{lookup}": raw_value}),
+                    Q(**{f"attributes__{attribute}__text__{lookup}": raw_value}),
+                ]
+            )
         return queryset.filter(reduce(operator.or_, filters))
 
     class Meta:

@@ -45,16 +45,16 @@ def test_soil_sample_detail_renders_workflow_and_all_source_samples(client):
         Sample.objects.create(
             accession=f"SAMEA11540704{index}",
             title=f"HG soil {index}",
-            environment=Sample.Environment.SOIL,
-            experiment_type=Sample.UseCase.CRYOPRESERVATION,
+            environment=Sample.UseCase.SOIL,
+            experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
         )
         for index in range(5, 8)
     ]
     sample = Sample.objects.create(
         accession="SAMEA115407051",
         title="HG soil mix",
-        environment=Sample.Environment.SOIL,
-        experiment_type=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.UseCase.SOIL,
+        experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
         attributes={
             "preservation_method": "freezing",
             "cryoprotectant": "10% DMSO",
@@ -84,19 +84,29 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
     matching = Sample.objects.create(
         accession="SAMEA121055795",
         title="DSMZ soil workflow sample",
-        environment=Sample.Environment.SOIL,
-        experiment_type=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.UseCase.SOIL,
+        experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
         attributes={
+            "preservation_method": {
+                "text": "freezing",
+                "ontologyterms": ["http://purl.obolibrary.org/obo/NCIT_C178951"],
+            },
             "cryoprotectant": "10 % Glycine Betaine + 10% Trehalose",
-            "storage_preservation_temperature": "-80",
-            "preservation_duration": "91",
+            "storage_preservation_temperature": {
+                "text": "-196",
+                "unit": "degree Celsius",
+            },
+            "preservation_duration": {
+                "text": "91",
+                "unit": "day",
+            },
         },
     )
     Sample.objects.create(
         accession="SAMEA121055796",
         title="Different soil workflow sample",
-        environment=Sample.Environment.SOIL,
-        experiment_type=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.UseCase.SOIL,
+        experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
         attributes={
             "cryoprotectant": "none",
             "storage_preservation_temperature": "-80",
@@ -107,10 +117,11 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
     response = client.get(
         reverse("samples_list"),
         {
-            "environment": Sample.Environment.SOIL,
-            "experiment_type": Sample.UseCase.CRYOPRESERVATION,
+            "environment": Sample.UseCase.SOIL,
+            "experiment_type": Sample.ExperimentType.CRYOPRESERVATION,
             "workflow_cryoprotectant": "glycine-betaine-trehalose",
-            "workflow_storage_temperature": "minus-80",
+            "workflow_preservation_method": "freezing",
+            "workflow_storage_temperature": "liquid-nitrogen",
             "workflow_preservation_duration": "3-months",
         },
     )
@@ -119,6 +130,12 @@ def test_workflow_filters_soil_samples_using_raw_biosamples_values(client):
     samples = list(response.context["samples"])
     assert samples == [matching]
     content = response.content.decode()
+    assert (
+        '<a class="vf-link" '
+        'href="http://purl.obolibrary.org/obo/NCIT_C178951" '
+        'target="_blank" rel="noopener noreferrer">freezing</a>'
+    ) in content
+    assert "&#x27;ontologyterms&#x27;" not in content
     assert 'data-workflow-mode="list"' in content
     assert 'id="show-workflow-filters"' in content
     assert 'id="workflow-filter-dialog"' in content
@@ -136,14 +153,14 @@ def test_workflow_parent_filter_lists_direct_children(client):
     parent = Sample.objects.create(
         accession="SAMEA115407051",
         title="HG soil mix",
-        environment=Sample.Environment.SOIL,
-        experiment_type=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.UseCase.SOIL,
+        experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
     )
     child = Sample.objects.create(
         accession="SAMEA115408603",
         title="MB1",
-        environment=Sample.Environment.SOIL,
-        experiment_type=Sample.UseCase.CRYOPRESERVATION,
+        environment=Sample.UseCase.SOIL,
+        experiment_type=Sample.ExperimentType.CRYOPRESERVATION,
     )
     child.derived_from.add(parent)
 
