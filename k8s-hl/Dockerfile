@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.14
 
 ENV USER=docker
 ENV UID=7123
