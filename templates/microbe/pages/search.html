@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="vf-stack vf-stack--400">
+        <div/>
+        <h2>Search results</h2>
+        <p class="lead">
+            MICROBE data objects matching "{{ query }}"
+        </p>
+
+        <section>
+            <h4 class="vf-text vf-text-heading--5">Matching Samples ({{ samples.count }})</h4>
+            {% for sample in samples.all|slice:":10" %}
+                <article class="vf-summary hf-search-result">
+                    <p class="vf-summary__date">
+                          {{ sample.accession }}
+                      <span class="vf-summary__meta">
+                          {{ sample.animal.system }}
+                      </span>
+                    </p>
+                    <h3 class="vf-summary__title">
+                        <a href="{% url 'sample_detail' pk=sample.accession %}" class="vf-summary__link">
+                            {{ sample.title }}
+                        </a>
+                    </h3>
+                    <p class="vf-summary__text">
+                      A {{ sample.experiment_type }} sample derived from {{ sample.environment }}
+                    </p>
+                </article>
+            {% endfor %}
+            {% if samples.count > 10 %}
+                <a class="vf-button vf-button--secondary vf-button--sm" href="{% url 'samples_list' %}">See more samples</a>
+            {% endif %}
+        </section>
+
+        <section>
+            <h4 class="vf-text vf-text-heading--5">Matching Analysis Summaries ({{ analysis_summaries.count }})</h4>
+            {% for analysis_summary in analysis_summaries.all|slice:":10" %}
+                <article class="vf-summary hf-search-result">
+                    <p class="vf-summary__date">
+                          {{ analysis_summary.updated }}
+                      <span class="vf-summary__meta">
+                          {{ analysis_summary.author }}
+                      </span>
+                    </p>
+                    <h3 class="vf-summary__title">
+                        <a href="{% url 'analysis_summary_detail' slug=analysis_summary.slug %}" class="vf-summary__link">
+                            {{ analysis_summary.title }}
+                        </a>
+                    </h3>
+                    <p class="vf-summary__text">
+                        {{ analysis_summary.content|truncatechars:200 }}
+                    </p>
+                </article>
+            {% endfor %}
+            {% if analysis_summaries.count > 10 %}
+                <a class="vf-button vf-button--secondary vf-button--sm" href="{% url 'analysis_summary_list' %}">See all analysis summaries</a>
+            {% endif %}
+        </section>
+
+        <section>
+            <h4 class="vf-text vf-text-heading--5">Matching Documentation ({{ docs_sections|length }})</h4>
+            {% for doc in docs_sections|slice:":10" %}
+                <article class="vf-summary hf-search-result">
+                    <p class="vf-summary__date">
+                          Documentation
+                      <span class="vf-summary__meta">
+                          {{ doc.title }}
+                      </span>
+                    </p>
+                    <h3 class="vf-summary__title">
+                        <a href="{{ DOCS_URL }}/{{ doc.href }}" class="vf-summary__link">
+                            {{ doc.section|default:doc.title }}
+                        </a>
+                    </h3>
+                    <p class="vf-summary__text">
+                      {{ doc.text|truncatechars:200 }}
+                    </p>
+                </article>
+            {% endfor %}
+            {% if docs_sections|length > 10 %}
+                <a class="vf-button vf-button--secondary vf-button--sm" href="{{ DOCS_URL }}">See more documentation</a>
+            {% endif %}
+        </section>
+
+    </div>
+{% endblock content %}

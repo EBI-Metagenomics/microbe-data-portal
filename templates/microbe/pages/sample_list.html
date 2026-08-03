@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% load sample_metadata %}
+{% block content %}
+    <nav class="vf-breadcrumbs" aria-label="Breadcrumb">
+      <ul class="vf-breadcrumbs__list | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'home' %}" class="vf-breadcrumbs__link">Home</a>
+        </li>
+
+          {% if from_animal %}
+            <li class="vf-breadcrumbs__item">
+              <a href="{% url 'animal_detail' pk=from_animal %}" class="vf-breadcrumbs__link">Animal {{ from_animal }}</a>
+            </li>
+          {% endif %}
+
+        <li class="vf-breadcrumbs__item" aria-current="location">
+          Samples
+        </li>
+      </ul>
+    </nav>
+    <button class="vf-button vf-button--secondary"
+            type="button"
+            id="show-workflow-filters">Show workflow filters</button>
+    <dialog class="sample-workflow-dialog" id="workflow-filter-dialog">
+        <div class="sample-workflow-dialog__header">
+            <h2>Workflow filters</h2>
+            <button class="vf-button vf-button--link vf-button--sm"
+                    type="button"
+                    id="close-workflow-filters"
+                    aria-label="Close workflow filters">Close</button>
+        </div>
+        {% include "microbe/components/sample_workflow.html" %}
+    </dialog>
+    <div class="vf-sidebar vf-sidebar--start vf-sidebar--800">
+        <div class="vf-sidebar__inner">
+            <div>
+                <h2>Filter samples</h2>
+                {% include "microbe/components/form.html" with form=filterset.form method="get" submit="Apply" id="sample_filters" show_workflow_filters=True workflow_filters_active=workflow.has_selected_filters only %}
+                <datalist id="preservation-method-options">
+                    {% for preseration_method in preservation_methods %}
+                        <option value="{{ preseration_method }}"></option>
+                    {% endfor %}
+                </datalist>
+                {% include "microbe/scripts/table_sorter.html" with formId="sample_filters" %}
+            </div>
+            <div>
+                <h2>Samples</h2>
+                <p class="vf-text-body vf-text-body--5">Samples are listed from environments across MICROBE project, at various levels of the BioSample hierarchy.</p>
+                <a class="vf-button vf-button--link vf-button--sm"
+                   href="{% url 'export:samples_list' %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
+                <div class="scrollable-container">
+                    <table class="vf-table">
+                        <thead class="vf-table__header">
+                            <tr class="vf-table__row">
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Sample accession" param="accession" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Environment" param="environment" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Preservation" param="preservation_method" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Detail" param="" %}
+                            </tr>
+                        </thead>
+                        <tbody class="vf-table__body">
+                            {% for sample in samples %}
+                                <tr class="vf-table__row">
+                                    <td class="vf-table__cell">
+                                        <a class="vf-link" href="{% url 'sample_detail' pk=sample.accession %}">{{ sample.accession }}</a>
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        {% include "microbe/components/atoms/environment_name.html" with entity=sample link_to_list_url_name="samples_list" only %}
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        {% pprint_metadatum sample.attributes.preservation_method %}
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        <a class="vf-button vf-button--link vf-button--sm"
+                                           href="{% url 'sample_detail' pk=sample.accession %}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="vf-table__footer">
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell" colspan="100">{% include "microbe/components/pagination.html" %}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

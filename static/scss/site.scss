@@ -1,0 +1,600 @@
+.vf-hero {
+	margin-top: 0;
+
+	.float {
+		position: absolute;
+		pointer-events: none;
+		user-select: none;
+		will-change: transform;
+		transform-origin: center;
+		animation-name: float-drift;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+
+	img.float {
+		z-index: 2;
+	}
+}
+
+@keyframes float-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(var(--r0, 0deg));
+  }
+
+  50% {
+    transform: translate3d(var(--x1), var(--y1), 0) rotate(var(--r1));
+  }
+
+  100% {
+    transform: translate3d(var(--x2), var(--y2), 0) rotate(var(--r2));
+  }
+}
+
+$floaters: (
+  seed-1:    (top: 18%, left: 68%, size: 70px,  dur: 11s, delay: -2s,  x1: 12px,  y1: -14px, x2: -8px,  y2: 8px,   r1: 4deg,  r2: -3deg),
+  seed-2:    (top: 32%, left: 52%, size: 46px,  dur: 13s, delay: -6s,  x1: -10px, y1: 10px,  x2: 14px,  y2: -7px,  r1: -5deg, r2: 2deg),
+  seed-3:    (top: 46%, left: 78%, size: 58px,  dur: 10s, delay: -1s,  x1: 16px,  y1: 7px,   x2: -12px, y2: -11px, r1: 3deg,  r2: -4deg),
+  seed-4:    (top: 64%, left: 38%, size: 42px,  dur: 15s, delay: -8s,  x1: -14px, y1: -8px,  x2: 10px,  y2: 12px,  r1: -3deg, r2: 5deg),
+  seed-5:    (top: 24%, left: 88%, size: 50px,  dur: 12s, delay: -4s,  x1: 8px,   y1: 13px,  x2: -15px, y2: -6px,  r1: 6deg,  r2: -2deg),
+  seed-6:    (top: 72%, left: 62%, size: 64px,  dur: 16s, delay: -10s, x1: -9px,  y1: -13px, x2: 13px,  y2: 9px,   r1: -4deg, r2: 3deg),
+
+  bacteria-1: (top: 22%, left: 24%, size: 60px, dur: 9s,  delay: -3s,  x1: 14px,  y1: -9px,  x2: -10px, y2: 11px,  r1: 5deg,  r2: -4deg),
+  bacteria-2: (top: 38%, left: 42%, size: 48px, dur: 12s, delay: -5s,  x1: -12px, y1: -12px, x2: 16px,  y2: 6px,   r1: -3deg, r2: 4deg),
+  bacteria-3: (top: 54%, left: 58%, size: 54px, dur: 10s, delay: -7s,  x1: 10px,  y1: 12px,  x2: -14px, y2: -8px,  r1: 4deg,  r2: -5deg),
+  bacteria-4: (top: 66%, left: 20%, size: 44px, dur: 14s, delay: -2s,  x1: -15px, y1: 8px,   x2: 9px,   y2: -12px, r1: -6deg, r2: 3deg),
+  bacteria-5: (top: 14%, left: 46%, size: 52px, dur: 11s, delay: -9s,  x1: 13px,  y1: 10px,  x2: -8px,  y2: -14px, r1: 2deg,  r2: -4deg),
+  bacteria-6: (top: 78%, left: 84%, size: 66px, dur: 17s, delay: -12s, x1: -10px, y1: -11px, x2: 12px,  y2: 8px,   r1: -4deg, r2: 6deg)
+);
+
+@each $name, $props in $floaters {
+  .#{$name} {
+    top: map-get($props, top);
+    left: map-get($props, left);
+    width: map-get($props, size);
+    animation-duration: map-get($props, dur);
+    animation-delay: map-get($props, delay);
+
+    --x1: #{map-get($props, x1)};
+    --y1: #{map-get($props, y1)};
+    --x2: #{map-get($props, x2)};
+    --y2: #{map-get($props, y2)};
+    --r1: #{map-get($props, r1)};
+    --r2: #{map-get($props, r2)};
+  }
+}
+
+.vf-table__cell {
+    font-size: 16px;
+}
+
+.scrollable-container {
+    overflow-x: scroll;
+	width: 100%;
+	box-sizing: border-box;
+
+	--scroll-widget-opacity: 0;
+
+	&:after {
+		content: "⟫";
+		box-sizing: inherit;
+		position: fixed;
+		right: 20px;
+		top: 50%;
+		overflow: hidden;
+		height: 48px;
+		width: 48px;
+		border-radius: 24px;
+		background-color: rgba(200, 200, 200, 0.6);
+		color: rgba(50, 50, 50, 0.6);
+		display: flex;
+		align-items: center;
+  		justify-content: center;
+		font-size: 24px;
+		opacity: var(--scroll-widget-opacity);
+		transition: opacity 0.3s ease-in-out;
+	}
+}
+
+table.full-width {
+	width: 100%;
+}
+
+.flex-grow {
+	flex-grow: 1;
+}
+
+.vf-navigation--global {
+	margin-left: 0 !important;
+}
+
+img.nav-icon {
+    height: 1em;
+    width: 1em;
+	padding-right: 0.2em;
+	padding-top: 0.2em;
+}
+
+li.vf-navigation__item.nav-item-cluster {
+    border: 2px solid var(--vf-color--grey);
+	padding: 0 8px;
+}
+
+li.nav-item-cluster {
+  // Default for a one-item cluster, or the start of a run.
+  margin: 8px 0 8px 8px !important;
+
+  // Any cluster item preceded by another cluster item: remove the left gap and border.
+  &.nav-item-cluster + .nav-item-cluster {
+    margin-left: 0 !important;
+	border-left: none;
+  }
+
+  // Any cluster item followed by another cluster item: remove the right gap.
+  &:has(+ .nav-item-cluster) {
+    margin-right: 0 !important;
+  }
+
+  // First item in a consecutive run of clustered nav items.
+  &:not(.nav-item-cluster + .nav-item-cluster) {
+    border-radius: 8px 0 0 8px !important;
+  }
+
+  // Middle items in a consecutive run of clustered nav items.
+  &.nav-item-cluster + .nav-item-cluster:has(+ .nav-item-cluster) {
+    border-radius: 0;
+  }
+
+  // Last item in a consecutive run of clustered nav items.
+  &:not(:has(+ .nav-item-cluster)) {
+    margin-right: 8px !important;;
+    border-radius: 0 8px 8px 0;
+  }
+
+	&:not(.nav-item-cluster__primary) {
+		background-color: var(--vf-color--neutral--200);
+	}
+}
+
+a.inline, button.inline {
+	margin: 0;
+	padding: 0;
+}
+
+.vf-card--microbe {
+    border-bottom-color: #00827f;
+
+	&.error {
+		border-bottom-color: var(--vf-color--red);
+	}
+}
+
+
+.api-endpoint {
+    background-color: #e4e4e4;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.tooltiped {
+  	position: relative;
+  	display: inline-block;
+  	border-bottom: 1px dotted #a0a0a0;
+	color: #00827f;
+
+	.tooltip-text {
+		visibility: hidden;
+		width: 240px;
+		text-align: center;
+		padding: 1em;
+		position: absolute;
+		z-index: 10;
+		bottom: 120%;
+		font-size: 0.75em;
+		left: 50%;
+		margin-left: -120px;
+		opacity: 0;
+		isolation: isolate;
+		transition: opacity 0.2s;
+		background-color: #373a36;
+			color: white;
+			border-radius: 6px;
+		&:after {
+		  content: "";
+		  position: absolute;
+		  top: 100%;
+		  left: 50%;
+		  margin-left: -5px;
+		  border-width: 5px;
+		  border-style: solid;
+		  border-color: #373a36 transparent transparent transparent;
+		}
+	}
+
+	&:hover {
+		.tooltip-text {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+}
+
+.space-below-20 {
+	margin-bottom: 20px;
+}
+
+.desktop-enforced-side-bar {
+	@media (min-width: 768px) {
+  		width: 45%;
+	}
+}
+
+.typeahead-results {
+	// Typeahead results list must be above vf-tabs active item
+	z-index: 6000 !important;
+}
+
+.highlight-tab-match {
+	&:after {
+		position: absolute;
+		left: 4px;
+		top: 4px;
+		height: 16px;
+		width: 16px;
+		background-color: var(--vf-color--red);
+		border-radius: 8px;
+
+		content: '';
+	}
+	&:not(.highlight-tab-select) {
+		&:after {
+			opacity: 0.4;
+		}
+	}
+}
+
+.autoComplete_wrapper {
+	float: right;
+}
+
+.annotated-data-type-icon {
+	position: relative;
+
+	.data-type-annotation {
+		position: absolute;
+		top: -2px;
+		left: -2px;
+		background-color: #888;
+		border: 1px solid white;
+		color: white;
+		border-radius: 50%;
+		width: 1.2em;
+		height: 1.2em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+	}
+}
+
+.data-type-icon {
+    height: 16px;
+    width: 16px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.icons-container {
+    gap: 4px;
+}
+
+.system-icon {
+	height: 16px;
+    width: 16px;
+	padding: 4px;
+}
+
+.hf-search-result {
+	padding-bottom: 16px;
+	border-bottom: 1px solid #ddd;
+}
+
+img.hf-hero-logo {
+	position: absolute;
+    right: 16px;
+    top: 32px;
+    width: 96px;
+}
+
+.vf-badge.hf-badge-has-data {
+	color: var(--vf-color__link);
+	background-color: var(--vf-color__interactive--background);
+	text-decoration: none;
+	img {
+		filter: invert(41%) sepia(50%) saturate(560%) hue-rotate(174deg) brightness(94%) contrast(105%);
+		width: 1em;
+		padding-right: 0.5em;
+	}
+}
+
+.martor-wrapper > * img {
+	width: 80%;
+}
+
+.vf-form__item {
+	input[type="range"] {
+		width: 100%;
+	}
+}
+
+.hf-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--vf-color--blue);
+      border-radius: 4px;
+      background-color: #fff;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 3px;
+      width: 4px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  input[type="checkbox"]:checked + label {
+    &::before {
+      background-color: var(--vf-color--blue);
+      border-color: var(--vf-color--blue);
+    }
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.sample-workflow {
+	margin-bottom: 32px;
+	padding: 20px;
+	border: 1px solid var(--vf-color--neutral--300);
+	background: var(--vf-color--neutral--100);
+}
+
+.sample-workflow-details {
+	margin-bottom: 32px;
+}
+
+.sample-workflow-details > .sample-workflow {
+	margin-top: 16px;
+	margin-bottom: 0;
+}
+
+.sample-workflow-details .sample-workflow__heading h2 {
+	display: none;
+}
+
+.sample-workflow-dialog {
+	width: calc(100vw - 48px);
+	max-width: 1400px;
+	max-height: calc(100vh - 48px);
+	padding: 20px;
+	border: 1px solid var(--vf-color--neutral--500);
+	overflow: auto;
+}
+
+.sample-workflow-dialog::backdrop {
+	background: rgba(0, 0, 0, 0.55);
+}
+
+.sample-workflow-dialog__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 24px;
+}
+
+.sample-workflow-dialog__header h2 {
+	margin: 0;
+}
+
+.sample-workflow-dialog > .sample-workflow {
+	margin: 16px 0 0;
+}
+
+.workflow-form-fields {
+	padding-top: 8px;
+	border-top: 1px solid var(--vf-color--neutral--300);
+}
+
+.sample-workflow__heading,
+.sample-workflow__actions,
+.sample-workflow__related {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px 32px;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.sample-workflow__heading h2 {
+	margin-top: 0;
+}
+
+.sample-workflow__legend {
+	display: flex;
+	gap: 16px;
+	font-size: 14px;
+}
+
+.sample-workflow__legend span {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.sample-workflow__swatch {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #54585a;
+	background: white;
+}
+
+.sample-workflow__swatch.is-current {
+	border-color: #00827f;
+	background: #d0efed;
+}
+
+.sample-workflow__swatch.is-selected {
+	border-color: #3b6fb6;
+	background: #dbe8f6;
+}
+
+.sample-workflow__canvas {
+	overflow-x: auto;
+	margin: 12px 0 16px;
+	background: white;
+	border: 1px solid var(--vf-color--neutral--300);
+}
+
+.sample-workflow__canvas svg {
+	display: block;
+	min-width: 1100px;
+	width: 100%;
+	height: auto;
+	font-family: "IBM Plex Sans", sans-serif;
+}
+
+.sample-workflow__stage-background {
+	fill: #f1f1f1;
+	stroke: #d0d0d0;
+}
+
+.sample-workflow__stage:nth-of-type(even) .sample-workflow__stage-background {
+	fill: #e4e4e4;
+}
+
+.sample-workflow__stage-label {
+	fill: #1a1a1a;
+	font-size: 15px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.sample-workflow__choice {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.sample-workflow__choice rect {
+	fill: white;
+	stroke: #707372;
+	stroke-width: 1.5;
+	transition: fill 120ms ease, stroke 120ms ease;
+}
+
+.sample-workflow__choice text {
+	fill: #1a1a1a;
+	font-size: 13px;
+	pointer-events: none;
+}
+
+.sample-workflow__choice:hover rect,
+.sample-workflow__choice:focus rect {
+	fill: #eef5fc;
+	stroke: #3b6fb6;
+	stroke-width: 3;
+}
+
+.sample-workflow__choice.is-current rect {
+	fill: #d0efed;
+	stroke: #00827f;
+	stroke-width: 3;
+}
+
+.sample-workflow__choice.is-selected rect {
+	fill: #dbe8f6;
+	stroke: #3b6fb6;
+	stroke-width: 3;
+}
+
+.sample-workflow__choice.is-related rect {
+	fill: #f5e8fb;
+	stroke: #734c99;
+}
+
+.sample-workflow__source-connection {
+	fill: none;
+	stroke: #734c99;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.sample-workflow__source-junction {
+	fill: #734c99;
+}
+
+.sample-workflow__relationship-label rect {
+	fill: white;
+	stroke: #c5addb;
+	stroke-width: 1;
+}
+
+.sample-workflow__relationship-label text {
+	fill: #54585a;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.sample-workflow__empty {
+	fill: #54585a;
+	font-size: 12px;
+}
+
+.sample-workflow__actions {
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.sample-workflow__actions p {
+	flex-basis: 100%;
+	margin: 0;
+}
+
+.sample-workflow__actions .vf-button {
+	margin: 0;
+}
+
+.sample-workflow__related > div {
+	min-width: 280px;
+	flex: 1;
+}

@@ -1,0 +1,55 @@
+{% load forms %}
+<form action="{{ action }}"
+      method="{{ method }}"
+      class="vf-stack vf-stack--800"
+      id="{{ id }}">
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+        {% if "workflow_" not in field.name %}
+            <div class="vf-form__item vf-stack">
+                <label for="{{ field.id_for_label }}" class="vf-form__label">{{ field.label }}</label>
+                {% if field.help_text %}<p class="vf-form__helper">{{ field.help_text }}</p>{% endif %}
+                {% if field.widget_type == 'text' %}
+                    {{ field | with_classes:"vf-form__input" }}
+                {% elif field.widget_type == 'select' or field.widget_type == 'csvselect' %}
+                    {{ field | with_classes:"vf-form__select" }}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                {% for error in field.errors %}<p class="vf-form__helper vf-form__helper--error">{{ error }}</p>{% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% if show_workflow_filters %}
+        <details class="vf-details workflow-form-fields"
+                 id="workflow-form-fields"
+                 {% if workflow_filters_active %}open{% endif %}>
+            <summary class="vf-details--summary">Workflow filters</summary>
+            <div class="vf-stack vf-stack--400">
+                {% for field in form %}
+                    {% if "workflow_" in field.name %}
+                        <div class="vf-form__item vf-stack">
+                            <label for="{{ field.id_for_label }}" class="vf-form__label">{{ field.label }}</label>
+                            {% if field.widget_type == 'text' %}
+                                {{ field | with_classes:"vf-form__input" }}
+                            {% elif field.widget_type == 'select' or field.widget_type == 'csvselect' %}
+                                {{ field | with_classes:"vf-form__select" }}
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                            {% for error in field.errors %}<p class="vf-form__helper vf-form__helper--error">{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </details>
+    {% endif %}
+
+    <div style="display: flex; justify-content: stretch;">
+        <input type="submit"
+               class="vf-button vf-button--primary vf-button--sm flex-grow"
+               value="{{ submit }}"/>
+    </div>
+</form>

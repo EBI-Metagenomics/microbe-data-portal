@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% load sample_metadata %}
+{% block content %}
+    <nav class="vf-breadcrumbs" aria-label="Breadcrumb">
+      <ul class="vf-breadcrumbs__list | vf-list vf-list--inline">
+        <li class="vf-breadcrumbs__item">
+          <a href="{% url 'home' %}" class="vf-breadcrumbs__link">Home</a>
+        </li>
+        <li class="vf-breadcrumbs__item" aria-current="location">
+            {% include "microbe/components/atoms/syncom_def.html" %} Samples
+        </li>
+      </ul>
+    </nav>
+    <div class="vf-sidebar vf-sidebar--start vf-sidebar--800">
+        <div class="vf-sidebar__inner">
+            <div>
+                <h2>Filter samples</h2>
+                {% include "microbe/components/form.html" with form=filterset.form method="get" submit="Apply" id="sample_filters" only %}
+                <datalist id="host-organism-options">
+                    {% for host_organism in host_organisms %}
+                        <option value="{{ host_organism }}"></option>
+                    {% endfor %}
+                </datalist>
+                {% include "microbe/scripts/table_sorter.html" with formId="sample_filters" %}
+            </div>
+            <div>
+                <h2>Samples</h2>
+                <p class="vf-text-body vf-text-body--5">Samples listed are {% include "microbe/components/atoms/syncom_def.html" %} BioSamples, associated with use cases across the MICROBE project.</p>
+                <a class="vf-button vf-button--link vf-button--sm"
+                   href="{% url 'export:samples_list' %}"><i class="icon icon-common icon-download"></i>&nbsp;Download all as TSV</a>
+                <div class="scrollable-container">
+                    <table class="vf-table">
+                        <thead class="vf-table__header">
+                            <tr class="vf-table__row">
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Sample accession" param="accession" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Environment" param="environment" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Host" param="host_scientific_name" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Constituents" param="constituents_count" %}
+                                {% include "microbe/components/atoms/maybe_sortable_table_column_heading.html" with form=filterset.form title="Detail" param="" %}
+                            </tr>
+                        </thead>
+                        <tbody class="vf-table__body">
+                            {% for sample in samples %}
+                                <tr class="vf-table__row">
+                                    <td class="vf-table__cell">
+                                        <a class="vf-link" href="{% url 'sample_detail' pk=sample.accession %}">{{ sample.accession }}</a>
+                                    </td>
+                                    <td class="vf-table__cell">
+                                        {% include "microbe/components/atoms/environment_name.html" with entity=sample link_to_list_url_name="samples_list_syncoms" only %}
+                                    </td>
+                                    <td class="vf-table__cell">{{ sample.attributes.host_scientific_name | default:"—" }}</td>
+                                    <td class="vf-table__cell">{{ sample.syncom_constituents.count }}</td>
+                                    <td class="vf-table__cell">
+                                        <a class="vf-button vf-button--link vf-button--sm"
+                                           href="{% url 'sample_detail' pk=sample.accession %}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="vf-table__footer">
+                            <tr class="vf-table__row">
+                                <td class="vf-table__cell" colspan="100">{% include "microbe/components/pagination.html" %}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
