@@ -13,9 +13,7 @@ class MgnifyApi:
         self.api_root = microbe_config.mgnify.api_root.rstrip("/")
         self.session.mount(
             self.api_root,
-            HTTPAdapter(
-                max_retries=Retry(total=microbe_config.mgnify.request_retries)
-            ),
+            HTTPAdapter(max_retries=Retry(total=microbe_config.mgnify.request_retries)),
         )
         self.request_options = {
             "timeout": microbe_config.mgnify.request_timeout.total_seconds(),

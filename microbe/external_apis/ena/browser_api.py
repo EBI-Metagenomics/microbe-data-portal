@@ -14,7 +14,6 @@ API_ROOT = microbe_config.ena.browser_api_root.rstrip("/")
 
 @dataclass
 class SampleAttribute:
-
     tag: str = field(metadata={"name": "TAG"})
     value: str = field(metadata={"name": "VALUE"})
     units: Optional[str] = field(default=None, metadata={"name": "UNITS"})

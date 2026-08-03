@@ -197,7 +197,7 @@ STATICFILES_FINDERS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, "static")
-SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_ENABLED = DEBUG
 
 STORAGES = {
     "staticfiles": {
