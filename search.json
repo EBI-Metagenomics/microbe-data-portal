@@ -1,0 +1,288 @@
+[
+  {
+    "objectID": "datasets.html",
+    "href": "datasets.html",
+    "title": "Datasets",
+    "section": "",
+    "text": "All MICROBE samples are registered in BioSamples, which has its own documentation.\nMost analyses of the samples are stored in further appropriate supporting databases, with a small number hosted directly in the MICROBE data portal.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "datasets.html#ena-samples-biosamples",
+    "href": "datasets.html#ena-samples-biosamples",
+    "title": "Datasets",
+    "section": "ENA Samples / BioSamples",
+    "text": "ENA Samples / BioSamples\nBioSamples are the “source of truth” for samples created by the project. Some samples are also present in ENA (with the same primary accession / identifier), if those samples pertain to nucleotide read data.\nAn ENA Sample is part of the ENA Metadata Model.\n\nA sample contains information about the sequenced source material. Samples are associated with checklists, which define the fields used to annotate the samples.\n\nENA has extensive documentation.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "datasets.html#ena-checklist-metadata",
+    "href": "datasets.html#ena-checklist-metadata",
+    "title": "Datasets",
+    "section": "ENA Checklist Metadata",
+    "text": "ENA Checklist Metadata\nAn ENA Checklist is a set of metadata (some mandatory) for a given sample type.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "datasets.html#biosamples-metadata",
+    "href": "datasets.html#biosamples-metadata",
+    "title": "Datasets",
+    "section": "BioSamples Metadata",
+    "text": "BioSamples Metadata\nTODO\nThere is a BioSamples online training course to learn more.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "datasets.html#mgnify-metagenomics",
+    "href": "datasets.html#mgnify-metagenomics",
+    "title": "Datasets",
+    "section": "MGnify: Metagenomics",
+    "text": "MGnify: Metagenomics\nMetagenomic-derived analyses are available for some MICROBE samples.\nThese datasets and analysis features are hosted by MGnify, which also has extensive documentation.\n\nMGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "datasets.html#summary-analyses",
+    "href": "datasets.html#summary-analyses",
+    "title": "Datasets",
+    "section": "Summary analyses",
+    "text": "Summary analyses\nSummary analyses are higher level analyses of a Sample or collection of Samples; written documents serving as short analysis summaries.\nThese summaries are hosted directly by the MICROBE data portal.\nThe documents are written by MICROBE partners and moderated by the MICROBE consortium, but are not peer-reviewed research articles.\nEach analysis summary is linked to one or more Samples that were included in the analysis or are relevant to it.",
+    "crumbs": [
+      "Data Portal",
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MICROBE Data Portal",
+    "section": "",
+    "text": "The database and website to present MICROBE samples, and unify the datasets stored in supporting services.",
+    "crumbs": [
+      "Data Portal",
+      "Docs home"
+    ]
+  },
+  {
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "MICROBE Data Portal",
+    "section": "Background",
+    "text": "Background\nMICROBE paves the way for an innovative microbiome biobanking in Europe by combining scientific expertise with research infrastructures know-how.\nThe data portal is a public website and API for browsing the Samples and datasets created by the project, which are stored in publicly-accessible data repositories.",
+    "crumbs": [
+      "Data Portal",
+      "Docs home"
+    ]
+  },
+  {
+    "objectID": "partners.html",
+    "href": "partners.html",
+    "title": "Admin access for MICROBE partners",
+    "section": "",
+    "text": "Bulk activities, like importing samples and metadata, are covered in the repository README.\nThere is also an Admin Panel where individual database entries can be managed.",
+    "crumbs": [
+      "Data Portal",
+      "Admin access for MICROBE partners"
+    ]
+  },
+  {
+    "objectID": "partners.html#managing-the-database",
+    "href": "partners.html#managing-the-database",
+    "title": "Admin access for MICROBE partners",
+    "section": "",
+    "text": "Bulk activities, like importing samples and metadata, are covered in the repository README.\nThere is also an Admin Panel where individual database entries can be managed.",
+    "crumbs": [
+      "Data Portal",
+      "Admin access for MICROBE partners"
+    ]
+  },
+  {
+    "objectID": "partners.html#authoring-new-summary-analysis-documents",
+    "href": "partners.html#authoring-new-summary-analysis-documents",
+    "title": "Admin access for MICROBE partners",
+    "section": "Authoring new Summary Analysis documents",
+    "text": "Authoring new Summary Analysis documents\nNavigate to the site admin panel, and log in.\n\n\n\n\n\n\nTip\n\n\n\nIf you do not have the link or credentials, please contact the helpdesk.\n\n\n\n\n\nScreenshot of admin panel landing page\n\n\nClick “Add” on the “Analysis Summary” entry. Depending on your permission level, you may see different objects than shown in the screenshot.\n\n\n\nScreenshot of an analysis summary in edit mode\n\n\nAnalysis summaries require a title (which is automatically converted into the URL slug). The document itself can be written as Markdown. To include images, upload them to a hosting site or GitHub repository, and include them via their URL. There are toolbar buttons in the markdown editor to help you with this syntax.\n\n\n\nScreenshot of a sample summary in edit mode\n\n\nAnalysis summaries must be linked to samples and/or catalogues. To link them, select the relevant samples/catalogues from the lists on the left, and hit the -&gt; button to move the selected samples/catalogues to the right-hand list.\n\n\n\n\n\n\nWarning\n\n\n\nDon’t forget to press “Save and continue editing” now and then!",
+    "crumbs": [
+      "Data Portal",
+      "Admin access for MICROBE partners"
+    ]
+  },
+  {
+    "objectID": "partners.html#editing-and-publishing-summary-analysis-documents",
+    "href": "partners.html#editing-and-publishing-summary-analysis-documents",
+    "title": "Admin access for MICROBE partners",
+    "section": "Editing and publishing Summary Analysis documents",
+    "text": "Editing and publishing Summary Analysis documents\nSuperuser credentials are required to publish analysis summaries. Until published, the documents do not appear on the public website. As a superuser, tick the “Is published” checkbox on an analysis summary edit page in the admin panel, and press Save.\nIf you believe you should have superuser credentials, contact the helpdesk.",
+    "crumbs": [
+      "Data Portal",
+      "Admin access for MICROBE partners"
+    ]
+  },
+  {
+    "objectID": "api.html",
+    "href": "api.html",
+    "title": "API for Programmatic Access",
+    "section": "",
+    "text": "APIs (Application Programming Interfaces) allow programmatic access to data resources. If you need to fetch and analyse metadata for many Samples, you can write a script to fetch data in this way.\nThe HoloFood Data Portal API gives programmatic access to the HoloFood Samples and their metadata, as well as URLs for where datasets are stored in public archives.\n\n\nThroughout the API, canonical_urls are returned which point to the canonical database entry, i.e. the authoritative source, for each data object.\nThese are:\n\nBioSamples for Samples (both host-animal level and derived-extraction level).\nThe European Nucleotide Archive Browser for nucleotide sequencing data.\nMGnify for metagenomic-derived analyses and MAGs (metagenome assembled genomes)\nMetaboLights for metabolomic analyses\nThe websites of various partner institutions and registries where an IRI has been supplied with a metadata entry.\nThe HoloFood Data Portal itself for “Analysis Summaries”, which are documents hosted only by this website.\nThe HoloFood Data Portal itself for viral annotations\n\n\n\n\nThe “Browsable API Playground” is the best place to discover the API. Find this under the API navigation item on the data portal.\nThe browsable API lets you see the endpoints and their response schemas. Under an endpoint, press Try it out to see the output for a specific query.\nIn brief, the top-level endpoints are:\n\n\nList samples, or fetch details about a specific sample (like its metadata). List all possible metadata markers (i.e. keys).\n\n\n\nList animals (hosts), or fetch details about a specific animal (like its metadata and derived samples).\n\n\n\nList summary analyses published on the data portal.\n\n\n\nList MAG catalogues, or fetch detail about a catalogue, or list the MAGs within a catalogue.\n\n\n\nList Viral catalogues, or fetch detail about a catalogue, or list the fragments within a catalogue.\n\n\n\n\n\n\nUse a command line tool like cURL to query the API. Responses are in JSON format.\nFor example to list all samples:\ncurl https://data.microbeportal.eu/api/samples\nTo find the Stearic acid 18:0 data associated with Fatty Acids sample SAMEA112949944, we could (using jq to handle JSON data on the command line):\ncurl https://data.microbeportal.eu/api/samples/SAMEA112949944 | jq '.structured_metadata | .[] | select(.marker.name == \"Stearic acid 18:0\")'\nand get\n{\n  \"marker\": {\n    \"name\": \"Stearic acid 18:0\",\n    \"type\": \"FATTY ACIDS MG\",\n    \"canonical_url\": null\n  },\n  \"measurement\": \"1,47\",\n  \"units\": \"mg/g\"\n}\n{\n  \"marker\": {\n    \"name\": \"Stearic acid 18:0\",\n    \"type\": \"FATTY ACIDS PERCENTAGE\",\n    \"canonical_url\": null\n  },\n  \"measurement\": \"1,47\",\n  \"units\": \"%\"\n}\n\n\n\nMore realistically, to fetch a list of samples as a Pandas dataframe\n\n\n\n\n\n\nPackages required\n\n\n\npip install requests pandas\n\n\n\nimport requests\nimport pandas as pd\n\n\nsamples = requests.get('https://www.holofooddata.org/api/samples')\n\n\nsamples_df = pd.json_normalize(samples.json()['items'])\nsamples_df.head(3)\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\nPaginated data\n\n\n\nHowever… we haven’t got all of the data. We only have one page.\nThe ?page= URL query parameter lets us retrieve subsequent pages.\n\n\n\nlen(samples_df)\n\n100\n\n\nThe API response does tell us how many items there are in total:\n\nsamples.json()['count']\n\n9889\n\n\n\nsamples_endpoint_base = 'https://www.holofooddata.org/api/samples'\n\n\npage = 1\n\n# We will only fetch the first 10 pages for now...\n\nmax_pages = 10\n\nwhile page and page &lt; max_pages:\n    print(f'Fetching {page=}')\n    \n    samples_page = requests.get(f'{samples_endpoint_base}?{page=}').json()\n    samples_page_df = pd.json_normalize(samples_page['items'])\n    \n    if page == 1:\n        samples_df = samples_page_df\n    else:\n        samples_df = pd.concat([samples_df, samples_page_df])\n    page += 1\n    if len(samples_df) &gt;= samples_page['count']:\n        page = False\n\nFetching page=1\nFetching page=2\nFetching page=3\nFetching page=4\nFetching page=5\nFetching page=6\nFetching page=7\nFetching page=8\nFetching page=9\n\n\n\nlen(samples_df)\n\n900\n\n\n\n\n\nsamples_df\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n3\nSAMEA10104912\nCA03.10F1a\nmetagenomic_assembly\nSAMEA112904752\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n4\nSAMEA10104914\nCA04.10F1a\nmetagenomic_assembly\nSAMEA112904915\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n95\nSAMEA112369857\nSB11.04B1a\ntranscriptomic\nSAMEA112949107\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369857\nNone\nNone\n\n\n96\nSAMEA112369858\nSB11.05B1a\ntranscriptomic\nSAMEA112949088\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369858\nNone\nNone\n\n\n97\nSAMEA112369859\nSB11.11B1a\ntranscriptomic\nSAMEA112949878\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369859\nNone\nNone\n\n\n98\nSAMEA112369860\nSB11.12B1a\ntranscriptomic\nSAMEA112948858\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369860\nNone\nNone\n\n\n99\nSAMEA112369861\nSB11.13B1a\ntranscriptomic\nSAMEA112948701\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369861\nNone\nNone\n\n\n\n\n900 rows × 7 columns\n\n\n\n\nmetagenome_assembly_samples = samples_df[samples_df.sample_type == 'metagenomic_assembly']\nprint(len(metagenome_assembly_samples))\nmetagenome_assembly_samples.head(3)\n\n458\n\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n\n\n\n\n\n\n\n\n\n\nWe didn’t need to fetch all the samples to then select only the metagenomic ones. We can instead fetch only the metagenomic ones using a query parameter filter. (If you’re familiar with SQL, this eventually maps to a WHERE clause on the database.)\n\npage = 1\n\nwhile page:\n    print(f'Fetching {page=}')\n    \n    mg_samples_page = requests.get(f'{samples_endpoint_base}?{page=}&sample_type=metagenomic_assembly').json()\n    mg_samples_page_df = pd.json_normalize(mg_samples_page['items'])\n    \n    if page == 1:\n        mg_samples_df = mg_samples_page_df\n    else:\n        mg_samples_df = pd.concat([mg_samples_df, mg_samples_page_df])\n    page += 1\n    if len(mg_samples_df) &gt;= mg_samples_page['count']:\n        page = False\n\nFetching page=1\nFetching page=2\nFetching page=3\nFetching page=4\nFetching page=5\nFetching page=6\nFetching page=7\nFetching page=8\nFetching page=9\nFetching page=10\nFetching page=11\nFetching page=12\nFetching page=13\nFetching page=14\n\n\n\nsamples_df\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n3\nSAMEA10104912\nCA03.10F1a\nmetagenomic_assembly\nSAMEA112904752\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n4\nSAMEA10104914\nCA04.10F1a\nmetagenomic_assembly\nSAMEA112904915\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n78\nSAMEA9449961\nCC17.06F1a\nmetagenomic_assembly\nSAMEA112905387\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n79\nSAMEA9449962\nCC17.10F1a\nmetagenomic_assembly\nSAMEA112905371\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n80\nSAMEA9449963\nCC16.16F1a\nmetagenomic_assembly\nSAMEA112905164\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n81\nSAMEA9449964\nCC18.03F1a\nmetagenomic_assembly\nSAMEA112904811\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n82\nSAMEA9449965\nCC18.05F1a\nmetagenomic_assembly\nSAMEA112905140\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n\n\n1383 rows × 7 columns\n\n\n\nAnd so, we’ve more efficiently fetch the metagenomic assemblies – by not pulling pages and pages of irrelevant data.",
+    "crumbs": [
+      "Data Portal",
+      "API for Programmatic Access"
+    ]
+  },
+  {
+    "objectID": "api.html#canonical-urls",
+    "href": "api.html#canonical-urls",
+    "title": "API for Programmatic Access",
+    "section": "",
+    "text": "Throughout the API, canonical_urls are returned which point to the canonical database entry, i.e. the authoritative source, for each data object.\nThese are:\n\nBioSamples for Samples (both host-animal level and derived-extraction level).\nThe European Nucleotide Archive Browser for nucleotide sequencing data.\nMGnify for metagenomic-derived analyses and MAGs (metagenome assembled genomes)\nMetaboLights for metabolomic analyses\nThe websites of various partner institutions and registries where an IRI has been supplied with a metadata entry.\nThe HoloFood Data Portal itself for “Analysis Summaries”, which are documents hosted only by this website.\nThe HoloFood Data Portal itself for viral annotations",
+    "crumbs": [
+      "Data Portal",
+      "API for Programmatic Access"
+    ]
+  },
+  {
+    "objectID": "api.html#api-endpoints-and-playground",
+    "href": "api.html#api-endpoints-and-playground",
+    "title": "API for Programmatic Access",
+    "section": "",
+    "text": "The “Browsable API Playground” is the best place to discover the API. Find this under the API navigation item on the data portal.\nThe browsable API lets you see the endpoints and their response schemas. Under an endpoint, press Try it out to see the output for a specific query.\nIn brief, the top-level endpoints are:\n\n\nList samples, or fetch details about a specific sample (like its metadata). List all possible metadata markers (i.e. keys).\n\n\n\nList animals (hosts), or fetch details about a specific animal (like its metadata and derived samples).\n\n\n\nList summary analyses published on the data portal.\n\n\n\nList MAG catalogues, or fetch detail about a catalogue, or list the MAGs within a catalogue.\n\n\n\nList Viral catalogues, or fetch detail about a catalogue, or list the fragments within a catalogue.",
+    "crumbs": [
+      "Data Portal",
+      "API for Programmatic Access"
+    ]
+  },
+  {
+    "objectID": "api.html#using-the-api",
+    "href": "api.html#using-the-api",
+    "title": "API for Programmatic Access",
+    "section": "",
+    "text": "Use a command line tool like cURL to query the API. Responses are in JSON format.\nFor example to list all samples:\ncurl https://data.microbeportal.eu/api/samples\nTo find the Stearic acid 18:0 data associated with Fatty Acids sample SAMEA112949944, we could (using jq to handle JSON data on the command line):\ncurl https://data.microbeportal.eu/api/samples/SAMEA112949944 | jq '.structured_metadata | .[] | select(.marker.name == \"Stearic acid 18:0\")'\nand get\n{\n  \"marker\": {\n    \"name\": \"Stearic acid 18:0\",\n    \"type\": \"FATTY ACIDS MG\",\n    \"canonical_url\": null\n  },\n  \"measurement\": \"1,47\",\n  \"units\": \"mg/g\"\n}\n{\n  \"marker\": {\n    \"name\": \"Stearic acid 18:0\",\n    \"type\": \"FATTY ACIDS PERCENTAGE\",\n    \"canonical_url\": null\n  },\n  \"measurement\": \"1,47\",\n  \"units\": \"%\"\n}\n\n\n\nMore realistically, to fetch a list of samples as a Pandas dataframe\n\n\n\n\n\n\nPackages required\n\n\n\npip install requests pandas\n\n\n\nimport requests\nimport pandas as pd\n\n\nsamples = requests.get('https://www.holofooddata.org/api/samples')\n\n\nsamples_df = pd.json_normalize(samples.json()['items'])\nsamples_df.head(3)\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\nPaginated data\n\n\n\nHowever… we haven’t got all of the data. We only have one page.\nThe ?page= URL query parameter lets us retrieve subsequent pages.\n\n\n\nlen(samples_df)\n\n100\n\n\nThe API response does tell us how many items there are in total:\n\nsamples.json()['count']\n\n9889\n\n\n\nsamples_endpoint_base = 'https://www.holofooddata.org/api/samples'\n\n\npage = 1\n\n# We will only fetch the first 10 pages for now...\n\nmax_pages = 10\n\nwhile page and page &lt; max_pages:\n    print(f'Fetching {page=}')\n    \n    samples_page = requests.get(f'{samples_endpoint_base}?{page=}').json()\n    samples_page_df = pd.json_normalize(samples_page['items'])\n    \n    if page == 1:\n        samples_df = samples_page_df\n    else:\n        samples_df = pd.concat([samples_df, samples_page_df])\n    page += 1\n    if len(samples_df) &gt;= samples_page['count']:\n        page = False\n\nFetching page=1\nFetching page=2\nFetching page=3\nFetching page=4\nFetching page=5\nFetching page=6\nFetching page=7\nFetching page=8\nFetching page=9\n\n\n\nlen(samples_df)\n\n900\n\n\n\n\n\nsamples_df\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n3\nSAMEA10104912\nCA03.10F1a\nmetagenomic_assembly\nSAMEA112904752\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n4\nSAMEA10104914\nCA04.10F1a\nmetagenomic_assembly\nSAMEA112904915\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n95\nSAMEA112369857\nSB11.04B1a\ntranscriptomic\nSAMEA112949107\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369857\nNone\nNone\n\n\n96\nSAMEA112369858\nSB11.05B1a\ntranscriptomic\nSAMEA112949088\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369858\nNone\nNone\n\n\n97\nSAMEA112369859\nSB11.11B1a\ntranscriptomic\nSAMEA112949878\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369859\nNone\nNone\n\n\n98\nSAMEA112369860\nSB11.12B1a\ntranscriptomic\nSAMEA112948858\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369860\nNone\nNone\n\n\n99\nSAMEA112369861\nSB11.13B1a\ntranscriptomic\nSAMEA112948701\nhttps://www.ebi.ac.uk/biosamples/SAMEA112369861\nNone\nNone\n\n\n\n\n900 rows × 7 columns\n\n\n\n\nmetagenome_assembly_samples = samples_df[samples_df.sample_type == 'metagenomic_assembly']\nprint(len(metagenome_assembly_samples))\nmetagenome_assembly_samples.head(3)\n\n458\n\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone",
+    "crumbs": [
+      "Data Portal",
+      "API for Programmatic Access"
+    ]
+  },
+  {
+    "objectID": "api.html#filters-using-query-parameters",
+    "href": "api.html#filters-using-query-parameters",
+    "title": "API for Programmatic Access",
+    "section": "",
+    "text": "We didn’t need to fetch all the samples to then select only the metagenomic ones. We can instead fetch only the metagenomic ones using a query parameter filter. (If you’re familiar with SQL, this eventually maps to a WHERE clause on the database.)\n\npage = 1\n\nwhile page:\n    print(f'Fetching {page=}')\n    \n    mg_samples_page = requests.get(f'{samples_endpoint_base}?{page=}&sample_type=metagenomic_assembly').json()\n    mg_samples_page_df = pd.json_normalize(mg_samples_page['items'])\n    \n    if page == 1:\n        mg_samples_df = mg_samples_page_df\n    else:\n        mg_samples_df = pd.concat([mg_samples_df, mg_samples_page_df])\n    page += 1\n    if len(mg_samples_df) &gt;= mg_samples_page['count']:\n        page = False\n\nFetching page=1\nFetching page=2\nFetching page=3\nFetching page=4\nFetching page=5\nFetching page=6\nFetching page=7\nFetching page=8\nFetching page=9\nFetching page=10\nFetching page=11\nFetching page=12\nFetching page=13\nFetching page=14\n\n\n\nsamples_df\n\n\n\n\n\n\n\n\naccession\ntitle\nsample_type\nanimal\ncanonical_url\nmetagenomics_url\nmetabolomics_url\n\n\n\n\n0\nSAMEA10104908\nCA01.07F1a\nmetagenomic_assembly\nSAMEA112905066\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n1\nSAMEA10104910\nCA02.12F1a\nmetagenomic_assembly\nSAMEA112904813\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n2\nSAMEA10104911\nCA02.18F1a\nmetagenomic_assembly\nSAMEA112904777\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n3\nSAMEA10104912\nCA03.10F1a\nmetagenomic_assembly\nSAMEA112904752\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n4\nSAMEA10104914\nCA04.10F1a\nmetagenomic_assembly\nSAMEA112904915\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA10...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n78\nSAMEA9449961\nCC17.06F1a\nmetagenomic_assembly\nSAMEA112905387\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n79\nSAMEA9449962\nCC17.10F1a\nmetagenomic_assembly\nSAMEA112905371\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n80\nSAMEA9449963\nCC16.16F1a\nmetagenomic_assembly\nSAMEA112905164\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n81\nSAMEA9449964\nCC18.03F1a\nmetagenomic_assembly\nSAMEA112904811\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n82\nSAMEA9449965\nCC18.05F1a\nmetagenomic_assembly\nSAMEA112905140\nhttps://www.ebi.ac.uk/ena/browser/view/SAMEA94...\nhttps://www.ebi.ac.uk/metagenomics/api/v1/samp...\nNone\n\n\n\n\n1383 rows × 7 columns\n\n\n\nAnd so, we’ve more efficiently fetch the metagenomic assemblies – by not pulling pages and pages of irrelevant data.",
+    "crumbs": [
+      "Data Portal",
+      "API for Programmatic Access"
+    ]
+  },
+  {
+    "objectID": "database.html",
+    "href": "database.html",
+    "title": "Database snapshots",
+    "section": "",
+    "text": "Snapshots of the data portal database are available from the EBI FTP server\nFor most multi-omics data queries, the API provides a set of endpoints to retrieve the desired filtered dataset. However, users may also download a SQLite file of the data portal database if they prefer to query it directly – e.g. to more quickly retrieve many queries.\nThe database is a SQLite3 file. Tools to query these databases exist on every platform and for many programming languages. Python has built-in support for them.\nAs a realistic example of it’s use, the following SQL query would retrieve a list of… TODO\nTODO",
+    "crumbs": [
+      "Data Portal",
+      "Database snapshots"
+    ]
+  },
+  {
+    "objectID": "website.html",
+    "href": "website.html",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Screenshot of the global search box\n\n\nThere is a a site-wide (“global”) search box at the top of the data portal landing page and most other pages. This searches over host and derived samples accessions, titles, systems, and types; genome and viral catalogue ids, titles, biomes, and related data; MAG accessions and taxonomies; viral fragment ids and contig ids; and this documentation.\nIf you search for valid sample, animal, or MAG accessions, the search will take you straight to an appropriate view in the portal. Otherwise, you’ll see a normal list of search results.\n\n\n\n\n\n\nScreenshot of sample listing webpage\n\n\nSamples can be found from the “Chicken samples” and “Salmon samples” navigation items. On the samples listing pages, there are various filters available to limit which samples are shown in the table. For example, you can find all samples from a particular animal, or all metabolomics type samples (each sample has a particular type).\nSamples may be linked to metadata (almost always), metagenomic, metabolomic, or host-genomic datasets. Other sample types have their results data in the sample metadata.\n\n\nSamples may also be search for by the host-animal’s treatment condition. The “Treatment search” filter is a case-insensitive text search over the samples’ animal treatment metadata. Specifically, it filters to samples whose host animal has all of the query strings in the animal’s BioSamples metadata fields: “Sampling time”, “Treatment name”, “Treatment description”, “Treatment code”, “Treatment concentration”.\nThis means you can search for e.g. ferm algae 2.0% \"day 60\" to find samples from animals treated with Fermented Algae at a 2.0% concentration and collected on trial Day 60.\nNote the use of lexical grouping around the “day 60” – this is useful when searching for, e.g. day 0 which would otherwise partially match day 60.\n\n\n\nTo view detail about a particular sample, click “View” on its row of the table.\nThe sample detail page contains information help about the sample in the various supporting databases. Metadata (from BioSamples) is shown in full, in a table. Metagenomic and metabolomic data are shown in summary form, with links to the respective public websites where those analyses are held.\nThe API section shows the API endpoint for this particular sample. You can copy this into a script, for example, to programmatically pull the data.\n\n\n\n\nThe complete sample list can be exported to TSV using the “Download all as TSV” button.\n\n\n\n\n\n\nNote\n\n\n\nThe “Download all as TSV” button does reflect any filters on the website table – it contains the complete list.\n\n\n\n\n\nScreenshot of a sample detail page with TSV export option\n\n\nThe complete metadata for a sample can be downloaded using the “Download all as TSV” button within the “Sample metadata” section of a sample detail page. For sample types where the metadata also includes results data (like histology measurements), the section is instead called “Sample data”.\n\n\n\n\n\nSome samples have metagenomics data, in MGnify. These can be found from the samples listing page by setting the Sample type filter to metagenomic_assembly or metagenomic_amplicon.\nMGnify analyses of a sample (identified with MGYA accessions) are listed and linked to from the sample detail page.\n\n\n\nScreenshot of a metagenomic sample detail page\n\n\n\n\n\nSome other samples have metabolomics data, in MetaboLights. These can be found form the samples listing page by setting the Sample type filter to metabolomic.\nMetaboLights data are identified at a Project level, with MTBLS accessions. MetaboLights does not store samples as independent objects, instead it stores lists of samples and files (and more) for the project. So, the HoloFood data portal sample detail page shows a filtered table of the MetaboLights project’s files, that relate to this sample. Following these file links will download the file.\nMetaboLights follows the ISA framework, so the table shown is a collection of files from the one or more assay sheets relevant to this sample. Raw and derived files are available.\n\n\n\nScreenshot of a metabolomic sample detail page\n\n\n\n\n\n\nEach host animal (an individual chicken or salmon) is itself a BioSample. Host-level measurements of the animal and its tank/pen are available as metadata on the animal. The animal listing pages (accessed from links on the sample lists) and the animal detail pages each include information about the derived sample types available for a given animal.\n\n\n\nScreenshot of an animal detail page\n\n\n\n\n\n\n\n\nScreenshot of a sample detail page with analysis documents links\n\n\nAnalysis summaries are linked to samples or catalogues. Any analysis summaries that mention a sample are shown at the bottom of the sample’s detail page.\n\n\n\nScreenshot of an analysis document\n\n\nAnalysis summaries also link back to the samples and/or catalogues they refer to. A complete list of analysis summaries can also be found from the navigation bar.\n\n\n\n\n\nMetagenome Assembled Genome (MAG) Catalogues are available for selected biomes. HoloFood MAGs are those created using only reads from HoloFood samples. However, there are other non-HoloFood public data available for the same biomes sampled by this project.\nEach HoloFood MAG Catalogue therefore referenced a public MAG Catalogue in MGnify, which is a superset of the HoloFood data and other public data. This is linked from each catalogue page on the HoloFood Data Portal site.\nEach MAG in the HoloFood catalogue references a MAG in the MGnify catalogue which represents the same species. In some cases, the HoloFood MAG is the best available sequence for that species level cluster, so the HoloFood MAG points to itself on the MGnify website. In other cases, a more complete, less contaminated, or isolate genome exists representing the same species, so the HoloFood MAG points to this better representative on MGnify.\n\n\n\nScreenshot of a MAG catalogue\n\n\nMAG Catalogues can be found from the “Genomes” navigation item, and then selecting a catalogue in the “Catalogues” sub-navigation. MAGs can be found by searching on accession or taxonomy, or for the accession of the cluster representative.\nThe MAGs in a catalogue can be downloaded as a TSV file, using the “Download all as TSV” button.\n\n\nMGnify Genomes catalogues use a standardised pipeline (Gurbich et al. 2023) to annotate the assembled genomes with various tools. These annotations are performed on the species-level cluster representative genomes. These annotations can all be accessed via the data portal’s links to MGnify.\nGiven the HoloFood project’s aims, CAZy (Carbohydrate-Active enZymes) annotations are particularly relevant to the HoloFood MAG catalogues.\nA summary of the CAZy annotations, in the form of counts per CAZy category, is therefore shown on the detail view of each MAG. (Note that, like all MAG annotations, these CAZy annotations refer to the MAG’s cluster representative genome – not necesarily the HoloFood-data-derived MAG itself.)\n\n\n\nScreenshot of a MAG’s detail page, including CAZy annotations\n\n\nThese annotations are also available via each genome’s API endpoint.\n\n\n\nTo facilitate the linking of MAGs to other samples within the HoloFood dataset, the data portal also includes a list of “containments” for each MAG within all of the project’s metagenomic samples.\nFor each MAG, a sample list was found using Mastiff (a tool based on sourmash, Irber et al. 2022). Each sample in this list contains the MAG at some level, equivalent to the fraction of the MAG’s kmers that are present in the sample’s sequencing reads. The list can be filtered to find only the samples that contain the MAG above some minimum containment threshold.\n\n\n\nScreenshot of a MAG’s sample containment list\n\n\nThese sample containment lists are also available via each genome’s API endpoint, as well as via the TSV export option above the table.\nTogether with the MAG’s CAZy annotations, this feature means the prevalence of carbohydrate-active enzymes can be compared at the genome level between samples originating from animals under different experimental conditions.\n\n\n\n\n Viral catalogues are lists of the unique (at species-level) viruses found in HoloFood samples. Viral catalogues can be found from the “Viruses” navigation item, and then selecting a catalogue in the “Catalogues” sub-navigation.\nViral fragment can be searched in various ways, like the parent contig ID, or the taxonomy of the viral prediction.\nBy default, only species-level clusters are shown (a representative viral fragment is shown).\nThis can be changed either by clicking the “View cluster” link within the table, to see the remainder of that specific cluster, or by changing the “Cluster visibility” dropdown in the filters to the left of the table.\nPressing “View contig” on a viral fragment in the table opens the contig viewer. This loads the contig from MGnify, as well as MGnify’s annotations on the contig. These can be explored in more detail by clicking the parent contig in the table, which links to MGnify.\nIn the contig viewer, ViPhOG annotations are shown. These are unique to the data portal. The viral region is highlighted in green. The GFF containing the ViPhOG(s) can also be downloaded, by viewing a viral fragment and pressing “Download ViPhOGs GFF”.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#global-search",
+    "href": "website.html#global-search",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Screenshot of the global search box\n\n\nThere is a a site-wide (“global”) search box at the top of the data portal landing page and most other pages. This searches over host and derived samples accessions, titles, systems, and types; genome and viral catalogue ids, titles, biomes, and related data; MAG accessions and taxonomies; viral fragment ids and contig ids; and this documentation.\nIf you search for valid sample, animal, or MAG accessions, the search will take you straight to an appropriate view in the portal. Otherwise, you’ll see a normal list of search results.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#finding-samples",
+    "href": "website.html#finding-samples",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Screenshot of sample listing webpage\n\n\nSamples can be found from the “Chicken samples” and “Salmon samples” navigation items. On the samples listing pages, there are various filters available to limit which samples are shown in the table. For example, you can find all samples from a particular animal, or all metabolomics type samples (each sample has a particular type).\nSamples may be linked to metadata (almost always), metagenomic, metabolomic, or host-genomic datasets. Other sample types have their results data in the sample metadata.\n\n\nSamples may also be search for by the host-animal’s treatment condition. The “Treatment search” filter is a case-insensitive text search over the samples’ animal treatment metadata. Specifically, it filters to samples whose host animal has all of the query strings in the animal’s BioSamples metadata fields: “Sampling time”, “Treatment name”, “Treatment description”, “Treatment code”, “Treatment concentration”.\nThis means you can search for e.g. ferm algae 2.0% \"day 60\" to find samples from animals treated with Fermented Algae at a 2.0% concentration and collected on trial Day 60.\nNote the use of lexical grouping around the “day 60” – this is useful when searching for, e.g. day 0 which would otherwise partially match day 60.\n\n\n\nTo view detail about a particular sample, click “View” on its row of the table.\nThe sample detail page contains information help about the sample in the various supporting databases. Metadata (from BioSamples) is shown in full, in a table. Metagenomic and metabolomic data are shown in summary form, with links to the respective public websites where those analyses are held.\nThe API section shows the API endpoint for this particular sample. You can copy this into a script, for example, to programmatically pull the data.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#downloading-sample-lists-and-metadata",
+    "href": "website.html#downloading-sample-lists-and-metadata",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "The complete sample list can be exported to TSV using the “Download all as TSV” button.\n\n\n\n\n\n\nNote\n\n\n\nThe “Download all as TSV” button does reflect any filters on the website table – it contains the complete list.\n\n\n\n\n\nScreenshot of a sample detail page with TSV export option\n\n\nThe complete metadata for a sample can be downloaded using the “Download all as TSV” button within the “Sample metadata” section of a sample detail page. For sample types where the metadata also includes results data (like histology measurements), the section is instead called “Sample data”.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#finding-sample-data-in-other-public-repositories",
+    "href": "website.html#finding-sample-data-in-other-public-repositories",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Some samples have metagenomics data, in MGnify. These can be found from the samples listing page by setting the Sample type filter to metagenomic_assembly or metagenomic_amplicon.\nMGnify analyses of a sample (identified with MGYA accessions) are listed and linked to from the sample detail page.\n\n\n\nScreenshot of a metagenomic sample detail page\n\n\n\n\n\nSome other samples have metabolomics data, in MetaboLights. These can be found form the samples listing page by setting the Sample type filter to metabolomic.\nMetaboLights data are identified at a Project level, with MTBLS accessions. MetaboLights does not store samples as independent objects, instead it stores lists of samples and files (and more) for the project. So, the HoloFood data portal sample detail page shows a filtered table of the MetaboLights project’s files, that relate to this sample. Following these file links will download the file.\nMetaboLights follows the ISA framework, so the table shown is a collection of files from the one or more assay sheets relevant to this sample. Raw and derived files are available.\n\n\n\nScreenshot of a metabolomic sample detail page",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#finding-samples-related-to-the-same-host-animal",
+    "href": "website.html#finding-samples-related-to-the-same-host-animal",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Each host animal (an individual chicken or salmon) is itself a BioSample. Host-level measurements of the animal and its tank/pen are available as metadata on the animal. The animal listing pages (accessed from links on the sample lists) and the animal detail pages each include information about the derived sample types available for a given animal.\n\n\n\nScreenshot of an animal detail page",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#finding-analysis-summaries",
+    "href": "website.html#finding-analysis-summaries",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Screenshot of a sample detail page with analysis documents links\n\n\nAnalysis summaries are linked to samples or catalogues. Any analysis summaries that mention a sample are shown at the bottom of the sample’s detail page.\n\n\n\nScreenshot of an analysis document\n\n\nAnalysis summaries also link back to the samples and/or catalogues they refer to. A complete list of analysis summaries can also be found from the navigation bar.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  },
+  {
+    "objectID": "website.html#using-the-catalogues",
+    "href": "website.html#using-the-catalogues",
+    "title": "Browsing the website",
+    "section": "",
+    "text": "Metagenome Assembled Genome (MAG) Catalogues are available for selected biomes. HoloFood MAGs are those created using only reads from HoloFood samples. However, there are other non-HoloFood public data available for the same biomes sampled by this project.\nEach HoloFood MAG Catalogue therefore referenced a public MAG Catalogue in MGnify, which is a superset of the HoloFood data and other public data. This is linked from each catalogue page on the HoloFood Data Portal site.\nEach MAG in the HoloFood catalogue references a MAG in the MGnify catalogue which represents the same species. In some cases, the HoloFood MAG is the best available sequence for that species level cluster, so the HoloFood MAG points to itself on the MGnify website. In other cases, a more complete, less contaminated, or isolate genome exists representing the same species, so the HoloFood MAG points to this better representative on MGnify.\n\n\n\nScreenshot of a MAG catalogue\n\n\nMAG Catalogues can be found from the “Genomes” navigation item, and then selecting a catalogue in the “Catalogues” sub-navigation. MAGs can be found by searching on accession or taxonomy, or for the accession of the cluster representative.\nThe MAGs in a catalogue can be downloaded as a TSV file, using the “Download all as TSV” button.\n\n\nMGnify Genomes catalogues use a standardised pipeline (Gurbich et al. 2023) to annotate the assembled genomes with various tools. These annotations are performed on the species-level cluster representative genomes. These annotations can all be accessed via the data portal’s links to MGnify.\nGiven the HoloFood project’s aims, CAZy (Carbohydrate-Active enZymes) annotations are particularly relevant to the HoloFood MAG catalogues.\nA summary of the CAZy annotations, in the form of counts per CAZy category, is therefore shown on the detail view of each MAG. (Note that, like all MAG annotations, these CAZy annotations refer to the MAG’s cluster representative genome – not necesarily the HoloFood-data-derived MAG itself.)\n\n\n\nScreenshot of a MAG’s detail page, including CAZy annotations\n\n\nThese annotations are also available via each genome’s API endpoint.\n\n\n\nTo facilitate the linking of MAGs to other samples within the HoloFood dataset, the data portal also includes a list of “containments” for each MAG within all of the project’s metagenomic samples.\nFor each MAG, a sample list was found using Mastiff (a tool based on sourmash, Irber et al. 2022). Each sample in this list contains the MAG at some level, equivalent to the fraction of the MAG’s kmers that are present in the sample’s sequencing reads. The list can be filtered to find only the samples that contain the MAG above some minimum containment threshold.\n\n\n\nScreenshot of a MAG’s sample containment list\n\n\nThese sample containment lists are also available via each genome’s API endpoint, as well as via the TSV export option above the table.\nTogether with the MAG’s CAZy annotations, this feature means the prevalence of carbohydrate-active enzymes can be compared at the genome level between samples originating from animals under different experimental conditions.\n\n\n\n\n Viral catalogues are lists of the unique (at species-level) viruses found in HoloFood samples. Viral catalogues can be found from the “Viruses” navigation item, and then selecting a catalogue in the “Catalogues” sub-navigation.\nViral fragment can be searched in various ways, like the parent contig ID, or the taxonomy of the viral prediction.\nBy default, only species-level clusters are shown (a representative viral fragment is shown).\nThis can be changed either by clicking the “View cluster” link within the table, to see the remainder of that specific cluster, or by changing the “Cluster visibility” dropdown in the filters to the left of the table.\nPressing “View contig” on a viral fragment in the table opens the contig viewer. This loads the contig from MGnify, as well as MGnify’s annotations on the contig. These can be explored in more detail by clicking the parent contig in the table, which links to MGnify.\nIn the contig viewer, ViPhOG annotations are shown. These are unique to the data portal. The viral region is highlighted in green. The GFF containing the ViPhOG(s) can also be downloaded, by viewing a viral fragment and pressing “Download ViPhOGs GFF”.",
+    "crumbs": [
+      "Data Portal",
+      "Browsing the website"
+    ]
+  }
+]

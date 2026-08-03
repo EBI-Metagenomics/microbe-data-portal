@@ -1,0 +1,1 @@
+Sitemap: https://EBI-Metagenomics.github.io/microbe-data-portal/sitemap.xml

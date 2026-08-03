@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/datasets.html</loc>
+    <lastmod>2026-08-03T13:57:53.196Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/index.html</loc>
+    <lastmod>2026-08-03T13:57:53.229Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/partners.html</loc>
+    <lastmod>2026-08-03T13:57:53.229Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/api.html</loc>
+    <lastmod>2026-08-03T13:57:53.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/database.html</loc>
+    <lastmod>2026-08-03T13:57:53.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/website.html</loc>
+    <lastmod>2026-08-03T13:57:53.230Z</lastmod>
+  </url>
+  <url>
+    <loc>https://EBI-Metagenomics.github.io/microbe-data-portal/publications.html</loc>
+    <lastmod>2026-08-03T13:57:53.230Z</lastmod>
+  </url>
+</urlset>
