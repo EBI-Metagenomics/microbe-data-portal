@@ -21,7 +21,7 @@ api = NinjaAPI(
     title="MICROBE Data Portal API",
     description="The API to browse [MICROBE](https://www.microbeproject.eu) samples and metadata, "
     "and navigate to datasets stored in public archives. \n\n #### Useful links: \n"
-    "- [Documentation](https://docs.microbeproject.eu/)\n"
+    "- [Documentation](https://ebi-metagenomics.github.io/microbe-data-portal/)\n"
     "- [MICROBE Data Portal home](/)\n"
     "- [MICROBE Project Website](https://www.microbeproject.eu)\n"
     "- [Helpdesk](https://www.ebi.ac.uk/contact)\n"

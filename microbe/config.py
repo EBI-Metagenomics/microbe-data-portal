@@ -77,7 +77,7 @@ class TablesConfig(BaseModel):
 
 
 class DocsConfig(BaseModel):
-    docs_url: AnyHttpUrl = "https://docs.microbedata.org"
+    docs_url: AnyHttpUrl = "https://ebi-metagenomics.github.io/microbe-data-portal/"
     portal_doi: str = "10.5281/zenodo.7684071"
 
 
